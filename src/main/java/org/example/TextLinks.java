@@ -10,6 +10,7 @@ public enum TextLinks {
     BUTTONSEARCH("//*[@id=\"search\"]/form/input[1]"),  //поле кнопки поска
     NOFIND("//*[@id=\"content\"]/p"),  // поле Товар не найден
     ADDITEM("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[1]/input"),  //поле добавить кол-во
+    SIZE("//*[@id=\"content\"]/div/div[2]/form/div/select"),  //поле выбра размера
     CLICKBAY("//*[@id=\"content\"]/div/div[2]/form/div/input"),  //поле добавить в корзину
     CLOUDWINDOW("//*[@id=\"fancybox-wrap\"]"),  // всплывающее окно
     CLOSEWINDOW("//*[@id=\"fancybox-close\"]"),  //закрыть всплывающее окно
