@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -25,9 +26,12 @@ public class OpenChromeBrowser {
 
     public void openChrome() {
 
+        String chromedriver = System.getProperty("user.home") + File.separator +
+                "chromedriver_win32"+"\\" + "chromedriver.exe";
+
         // установливаем зависимость, определяющую путь к chromedriver
         ChromeOptions options = new ChromeOptions();
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
+        System.setProperty("webdriver.chrome.driver", chromedriver);
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
 

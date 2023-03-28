@@ -23,9 +23,10 @@ public class AddGoods {
         search.clear();
         search.sendKeys(item);
 
-        TextLinks linkClickBay = TextLinks.CLICKBAY;
-        WebElement buttonSearch = xPathWait.xPath(linkClickBay.getString());
-        buttonSearch.click();
+//        TextLinks linkClickBay = TextLinks.CLICKBAY;
+//        WebElement buttonSearch = xPathWait.xPath(linkClickBay.getString());
+//        buttonSearch.click();
+
 
         /*
         добавить проверку на всплывающее окно
@@ -33,9 +34,9 @@ public class AddGoods {
         TextLinks linkWindow = TextLinks.CLOUDWINDOW;
          */
 
-        TextLinks linkCloseWindow = TextLinks.CLOSEWINDOW;
-        WebElement buttonClose = xPathWait.xPath(linkCloseWindow.getString());
-        buttonClose.click();
+//        TextLinks linkCloseWindow = TextLinks.CLOSEWINDOW;
+//        WebElement buttonClose = xPathWait.xPath(linkCloseWindow.getString());
+//        buttonClose.click();
 
     }
 

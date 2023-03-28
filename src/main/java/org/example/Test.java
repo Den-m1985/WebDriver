@@ -2,13 +2,11 @@ package org.example;
 
 import com.opencsv.exceptions.CsvException;
 import org.example.createPathFile.GetPathFile;
-import org.example.csvRead.CsvFilter;
 
 import java.io.IOException;
-import java.util.List;
 
 public class Test {
-    public static void main(String[] args) throws IOException, CsvException {
+    public static void main(String[] args) {
 
         String pathCSV = null;
 
@@ -30,18 +28,6 @@ public class Test {
         System.out.println();
 
         Command command = new Command();
-
-        CsvFilter csvFilter = new CsvFilter(pathCSV);
-        List<String[]> data = csvFilter.csvFilter(0, 3);
-
-//        for (String [] dat: data) {
-//            System.out.println(dat[0]);
-//            System.out.println(dat[1]);
-//            System.out.println(dat[2]);
-//            System.out.println(dat[3]);
-////            System.out.println("****************************");
-//
-//        }
 
         try {
             command.startProgram(pathCSV);

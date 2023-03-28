@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
@@ -25,6 +26,12 @@ public class Command {
 
         long start = System.nanoTime();
 
+        // Read csv
+        int cellName = 0;   // Cell with name or articular
+        int cellItem = 3;   // Cell with item to order
+        CsvFilter csvFilter = new CsvFilter(pathCSV);
+        List<String[]> data = csvFilter.csvFilter(cellName, cellItem);
+
         // Open browser
         OpenChromeBrowser openBrowser = new OpenChromeBrowser();
         openBrowser.openChrome();
@@ -37,37 +44,24 @@ public class Command {
         // login account
         new LoginPage(wait);
 
-        // Read csv
-        int cellName = 0;   // Cell with name or articular
-        int cellItem = 3;   // Cell with item to order
-        //CsvRead csvRead = new CsvRead(pathCSV);
-        //Map<String, String> data = csvRead.readCSV(cellName, cellItem);
-        CsvFilter csvFilter = new CsvFilter(pathCSV);
-        List<String[]> data = csvFilter.csvFilter(cellName, cellItem);
-
-
-        //Map<String, String> data2 = new HashMap<>();
-        //data2.put("BESTWAY Круг для плавания, 56см, ПВХ, дизайнерский", "5");
-
         ArrayList<String> noFindList = new ArrayList<>();
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
 
-        //for (Map.Entry<String, String> goods : data.entrySet()) {
         for (String[] goods : data) {
-            //String goodsName = goods.getKey();
             String goodsName = goods[0];
             String goodsSize = goods[1];
             String goodsPrice = goods[2];
             String goodsItem = goods[3];
 
+            // Надо реализовать - если всплывает окно, то нужно закрыть, а упадем в ошибку.
+            //WebElement cloudWindow = driver.findElement(By.id("fancybox-wrap"));
+            //TextLinks closeWindow = TextLinks.CLOSEWINDOW;
+            //cloudWindow.findElement(By.xpath(closeWindow.getString())).click();
 
+
+            // Search goods
             searchGoods.searchProduct(goodsName);
-
-            // от ChatGPT не работает
-            //WebElement searchBox = driver.findElement(By.name("input_search"));
-            //searchBox.sendKeys(goods.getKey());
-            //searchBox.submit();
 
             // находим несколько имен в поисковике
             List<WebElement> products = driver.findElements(By.className("products"));
@@ -77,37 +71,46 @@ public class Command {
 
             // проверяем на ниличие выбора размера
             List<WebElement> size = driver.findElements(By.className("b1c_option"));
-            //int getLength = size.get(0).getText().length();
 
-            //System.out.println(size.size() + "*****" + goodsName);
             // если товара в поисковике более 1шт
             if (products.size() > 0) {
                 noFindList.add(goodsName);
                 System.out.println("Товаров более 1шт." + goodsName);
+
                 // если товар есть
             } else if (product.size() > 0) {
+
                 // если надо выбрать размер
                 if (size.get(0).getText().length() > 0) {
-                    TextLinks linkButtonSearch = TextLinks.SIZE;
-                    WebElement buttonSearch = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(linkButtonSearch.getString())));
-                    buttonSearch.click();
-                    buttonSearch.sendKeys(goodsSize);
+
                     System.out.println(size.get(0).getText().length() + "--" + goodsName);
 
-                }//else addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-//                System.out.println();
-//                System.out.println(goodsName);
-//                System.out.println("Длина продукта   _______" + product.size());
-//                System.out.println();
 
+                    WebElement size2 = driver.findElement(By.className("b1c_option"));
+                    Select select1 = new Select(size2);
+                    select1.selectByVisibleText(goodsSize);
+
+
+
+                    WebElement priceClass = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[1]"));
+                    priceClass.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[2]"));
+
+                    System.out.println("text--"+priceClass.getText());
+                    System.out.println("price--"+priceClass.getText());
+
+
+
+
+
+                    System.out.println("***************************************");
+
+                    addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+
+
+                }else addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
             } else noFindList.add(goodsName);
         }
-//        System.out.println("************************");
-//        for (String x:noFindList
-//             ) {
-//            System.out.println(x);
-//        }
-//        System.out.println("*****************************");
+
         //driver.close();  //закрываем браузер по завершению
 
         System.out.println("Кол-во не найденных товаров: " + noFindList.size());

@@ -5,16 +5,17 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.example.TextLinks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateOldExel {
 
-    private List<String> cell;
 
     public CreateOldExel() {
     }
 
-    public HSSFWorkbook createOldExel(List<String> list) {
+
+    public HSSFWorkbook createOldExel(ArrayList<String> list) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         TextLinks textSheet = TextLinks.SHEET;
         Sheet sheet = workbook.createSheet(textSheet.getString());
@@ -25,11 +26,12 @@ public class CreateOldExel {
         TextLinks noFindArticul = TextLinks.NOARTICUL;
         row.createCell(0).setCellValue(noFindArticul.getString());
 
-        for (int i = 2; i < list.size(); i++) {
-            Row row2 = sheet.createRow(i);
+        for (int i = 0; i < list.size(); i++) {
+            Row row2 = sheet.createRow(i+2);
             row2.createCell(0).setCellValue(list.get(i));
         }
-
         return workbook;
     }
+
+
 }

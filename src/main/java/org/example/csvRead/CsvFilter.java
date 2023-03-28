@@ -18,7 +18,7 @@ public class CsvFilter {
     public List<String[]> csvFilter(int cellName, int cellItem) throws IOException, CsvException {
 
         CsvRead csvRead = new CsvRead(fileName);
-        List<String[]> rows = csvRead.readCSV(cellName, cellItem);
+        List<String[]> rows = csvRead.readCSV();
 
         List<String[]> dataCSV = new ArrayList<>();
 
@@ -28,10 +28,10 @@ public class CsvFilter {
 
             // Проверяем уникальность текущего элемента среди уже имеющихся в новом списке
             for (String[] uniq : dataCSV) {
-                if (row[0].equals(uniq[0])) {
+                if (row[cellName].equals(uniq[cellName])) {
                     // Строка не уникальна - выходим из цикла по поиску уникальных строк
                     isUnique = false;
-                    System.out.println("Повтояющееся имя товара: " + row[0]);
+                    System.out.println("Повтояющееся имя товара: " + row[cellName]);
                     break;
                 }
             }

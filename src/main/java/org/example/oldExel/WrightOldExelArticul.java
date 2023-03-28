@@ -4,10 +4,10 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.example.TextLinks;
 import org.example.createPathFile.CreatePathFile;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class WrightOldExelArticul {
-    public WrightOldExelArticul( List<String> list) {
+    public WrightOldExelArticul( ArrayList<String> list) {
 
 
         //create no find article
