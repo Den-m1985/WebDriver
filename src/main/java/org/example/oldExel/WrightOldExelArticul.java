@@ -5,9 +5,10 @@ import org.example.TextLinks;
 import org.example.createPathFile.CreatePathFile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WrightOldExelArticul {
-    public WrightOldExelArticul( ArrayList<String> list) {
+    public WrightOldExelArticul( List<String[]> list) {
 
 
         //create no find article

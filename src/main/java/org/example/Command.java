@@ -45,6 +45,8 @@ public class Command {
         new LoginPage(wait);
 
         ArrayList<String> noFindList = new ArrayList<>();
+        List<String[]> reportList = new ArrayList<>();
+
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
 
@@ -76,6 +78,8 @@ public class Command {
             if (products.size() > 0) {
                 noFindList.add(goodsName);
                 System.out.println("Товаров более 1шт." + goodsName);
+                String[] noFind = {goodsName, "товаров более 1шт."};
+                reportList.add(noFind);
 
                 // если товар есть
             } else if (product.size() > 0) {
@@ -85,36 +89,46 @@ public class Command {
 
                     System.out.println(size.get(0).getText().length() + "--" + goodsName);
 
-
-                    WebElement size2 = driver.findElement(By.className("b1c_option"));
-                    Select select1 = new Select(size2);
-                    select1.selectByVisibleText(goodsSize);
-
+                    try {
+                        WebElement size2 = driver.findElement(By.className("b1c_option"));
+                        Select select1 = new Select(size2);
+                        select1.selectByVisibleText(goodsSize);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
 
                     WebElement priceClass = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[1]"));
                     priceClass.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[2]"));
 
-                    System.out.println("text--"+priceClass.getText());
-                    System.out.println("price--"+priceClass.getText());
-
-
-
+                    System.out.println("text--" + priceClass.getText());
+                    System.out.println("price--" + priceClass.getText());
 
 
                     System.out.println("***************************************");
 
                     addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
 
+                    String[] noFind = {goodsName, "товар найден с размерами"};
+                    reportList.add(noFind);
 
-                }else addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-            } else noFindList.add(goodsName);
+                } else {
+                    addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+                    String[] noFind = {goodsName, "товар найден"};
+                    reportList.add(noFind);
+                }
+
+            } else {
+                noFindList.add(goodsName);
+                String[] noFind = {goodsName, "товар НЕнайден"};
+                reportList.add(noFind);
+            }
         }
 
         //driver.close();  //закрываем браузер по завершению
 
         System.out.println("Кол-во не найденных товаров: " + noFindList.size());
-        new WrightOldExelArticul(noFindList);
+        new WrightOldExelArticul(reportList);
 
         long end = System.nanoTime();
         long a = end - start;
