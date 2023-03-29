@@ -95,35 +95,19 @@ public class Command {
                 // если надо выбрать размер
                 if (size.get(0).getText().length() > 0) {
 
-                    //System.out.println("Товары с размерами" + "--" + goodsName);
-
-//                    while (true) {
-//                        try {
-//                            WebElement size2 = driver.findElement(By.className("b1c_option"));
-//
-//                            String str = size2.getText();
-//                            String str2 = goodsSize;
-//                            System.out.println();
-//                            System.out.println(goodsName + "**совпадение размера**" +str.contains(str2));
-//                            //System.out.println(str + "****" +str2);
-//                            Select select1 = new Select(size2);
-//                            select1.selectByVisibleText(goodsSize);
-//                            addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-//                            System.out.println("успешно выбран");
-//                            break;
-//                        } catch (Exception e) {
-//                            String[] noFind = {goodsName, "ошибка товара с размером"};
-//                            reportList.add(noFind);
-//                            System.out.println("Не выбрал размер");
-//                            break;
-//                        }
-//                    }
                     WebElement size2 = driver.findElement(By.className("b1c_option"));
                     if (size2.getText().contains(goodsSize)) {
                         Select select1 = new Select(size2);
                         select1.selectByVisibleText(goodsSize);
-                        addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-                        System.out.println("успешно выбран");
+
+                        CheckPrice check = new CheckPrice(driver, intGoodsPrice);
+                        if (check.checkPrice()) {
+                            addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+                            System.out.println(goodsName);
+                            System.out.println("успешно выбран");
+
+                        } else reportList.add(check.getCheckPrice(goodsName));
+
                     } else {
                         String[] noFind = {goodsName, "ошибка товара с размером"};
                         reportList.add(noFind);
@@ -131,10 +115,8 @@ public class Command {
                     }
 
 
-                    CheckPrice check = new CheckPrice(driver, intGoodsPrice);
-                    check.checkPrice();
-
                 } else {
+                    System.out.println(goodsName);
                     addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
                     CheckPrice check = new CheckPrice(driver, intGoodsPrice);
                     check.checkPrice();
@@ -149,10 +131,8 @@ public class Command {
 
         //driver.close();  //закрываем браузер по завершению
 
-        System.out.println("Кол-во не найденных товаров: " + reportList.size());
-        String fdgvsdf = String.valueOf(reportList.size());
-        String[] noFind = {fdgvsdf, "Кол-во не найденных товаров: "};
-        reportList.add(noFind);
+        System.out.println("Кол-во ненайденных товаров: " + reportList.size());
+
         new WrightOldExelArticul(reportList);
 
         long end = System.nanoTime();

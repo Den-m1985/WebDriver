@@ -48,6 +48,12 @@ public class CsvFilter {
         System.out.println();
         System.out.println(textLinks.getString() + dataCSV.size());
 
+
+
+        /*
+        добавить проверку на отсутствие цены
+         */
+
         return dataCSV;
     }
 
