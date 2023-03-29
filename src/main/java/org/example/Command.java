@@ -1,6 +1,7 @@
 package org.example;
 
 import com.opencsv.exceptions.CsvException;
+import org.checkerframework.checker.i18nformatter.qual.I18nFormat;
 import org.example.browser.*;
 import org.example.csvRead.CsvFilter;
 import org.example.csvRead.CsvRead;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Command {
+    private List<String[]> reportList;
 
     public Command() {
     }
@@ -44,39 +46,45 @@ public class Command {
         // login account
         new LoginPage(wait);
 
-        ArrayList<String> noFindList = new ArrayList<>();
-        List<String[]> reportList = new ArrayList<>();
-
+        //ArrayList<String> noFindList = new ArrayList<>();
+        reportList = new ArrayList<>();
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
 
         for (String[] goods : data) {
             String goodsName = goods[0];
             String goodsSize = goods[1];
-            String goodsPrice = goods[2];
+            int intGoodsPrice = Integer.parseInt(goods[2]);
             String goodsItem = goods[3];
+
 
             // Надо реализовать - если всплывает окно, то нужно закрыть, а упадем в ошибку.
             //WebElement cloudWindow = driver.findElement(By.id("fancybox-wrap"));
             //TextLinks closeWindow = TextLinks.CLOSEWINDOW;
             //cloudWindow.findElement(By.xpath(closeWindow.getString())).click();
-
+            // хотя если программа работает, то и окго не выходит.
 
             // Search goods
             searchGoods.searchProduct(goodsName);
 
             // находим несколько имен в поисковике
             List<WebElement> products = driver.findElements(By.className("products"));
+//            for (WebElement x : products) {
+//                System.out.println("Несколько товаров" + x + "--" + goodsName);
+//            }
 
             // проверяем на наличие товара
             List<WebElement> product = driver.findElements(By.className("product"));
 
             // проверяем на ниличие выбора размера
             List<WebElement> size = driver.findElements(By.className("b1c_option"));
+//            for (WebElement x : size) {
+//                System.out.println("выбора размера" + x.getText() + "--" + goodsName);
+//            }
 
             // если товара в поисковике более 1шт
             if (products.size() > 0) {
-                noFindList.add(goodsName);
+                //noFindList.add(goodsName);
                 System.out.println("Товаров более 1шт." + goodsName);
                 String[] noFind = {goodsName, "товаров более 1шт."};
                 reportList.add(noFind);
@@ -87,47 +95,64 @@ public class Command {
                 // если надо выбрать размер
                 if (size.get(0).getText().length() > 0) {
 
-                    System.out.println(size.get(0).getText().length() + "--" + goodsName);
+                    //System.out.println("Товары с размерами" + "--" + goodsName);
 
-                    try {
-                        WebElement size2 = driver.findElement(By.className("b1c_option"));
+//                    while (true) {
+//                        try {
+//                            WebElement size2 = driver.findElement(By.className("b1c_option"));
+//
+//                            String str = size2.getText();
+//                            String str2 = goodsSize;
+//                            System.out.println();
+//                            System.out.println(goodsName + "**совпадение размера**" +str.contains(str2));
+//                            //System.out.println(str + "****" +str2);
+//                            Select select1 = new Select(size2);
+//                            select1.selectByVisibleText(goodsSize);
+//                            addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+//                            System.out.println("успешно выбран");
+//                            break;
+//                        } catch (Exception e) {
+//                            String[] noFind = {goodsName, "ошибка товара с размером"};
+//                            reportList.add(noFind);
+//                            System.out.println("Не выбрал размер");
+//                            break;
+//                        }
+//                    }
+                    WebElement size2 = driver.findElement(By.className("b1c_option"));
+                    if (size2.getText().contains(goodsSize)) {
                         Select select1 = new Select(size2);
                         select1.selectByVisibleText(goodsSize);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+                        System.out.println("успешно выбран");
+                    } else {
+                        String[] noFind = {goodsName, "ошибка товара с размером"};
+                        reportList.add(noFind);
+                        System.out.println("Не выбрал размер");
                     }
 
 
-                    WebElement priceClass = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[1]"));
-                    priceClass.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[2]"));
-
-                    System.out.println("text--" + priceClass.getText());
-                    System.out.println("price--" + priceClass.getText());
-
-
-                    System.out.println("***************************************");
-
-                    addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-
-                    String[] noFind = {goodsName, "товар найден с размерами"};
-                    reportList.add(noFind);
+                    CheckPrice check = new CheckPrice(driver, intGoodsPrice);
+                    check.checkPrice();
 
                 } else {
                     addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-                    String[] noFind = {goodsName, "товар найден"};
-                    reportList.add(noFind);
+                    CheckPrice check = new CheckPrice(driver, intGoodsPrice);
+                    check.checkPrice();
                 }
 
             } else {
-                noFindList.add(goodsName);
-                String[] noFind = {goodsName, "товар НЕнайден"};
+                //noFindList.add(goodsName);
+                String[] noFind = {goodsName, "товар НЕ найден"};
                 reportList.add(noFind);
             }
         }
 
         //driver.close();  //закрываем браузер по завершению
 
-        System.out.println("Кол-во не найденных товаров: " + noFindList.size());
+        System.out.println("Кол-во не найденных товаров: " + reportList.size());
+        String fdgvsdf = String.valueOf(reportList.size());
+        String[] noFind = {fdgvsdf, "Кол-во не найденных товаров: "};
+        reportList.add(noFind);
         new WrightOldExelArticul(reportList);
 
         long end = System.nanoTime();

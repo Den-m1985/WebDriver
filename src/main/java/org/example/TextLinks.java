@@ -13,6 +13,7 @@ public enum TextLinks {
     CLICKBAY("//*[@id=\"content\"]/div/div[2]/form/div/input"),  //поле добавить в корзину
     CLOUDWINDOW("//*[@id=\"fancybox-wrap\"]"),  // всплывающее окно
     CLOSEWINDOW("//*[@id=\"fancybox-close\"]"),  //закрыть всплывающее окно
+    PRICE("#content > div > div.description > form > div > div.price > span.price"),  // поле цены
     OPENFILEPATH("Downloads"),  //открываем и сохраняем папку по умолчанию
     COUNROWSCSV("количество товаров в csv: "),
     SHEET("Sheet1"),  // имя страницы в отчете
