@@ -98,7 +98,7 @@ public class Command {
                     WebElement size2 = driver.findElement(By.className("b1c_option"));
                     if (size2.getText().contains(goodsSize)) {
                         Select select1 = new Select(size2);
-                        select1.selectByVisibleText(goodsSize);
+                        select1.selectByVisibleText(goodsSize);  // выбираем размер
 
                         CheckPrice check = new CheckPrice(driver, intGoodsPrice);
                         if (check.checkPrice()) {
@@ -117,9 +117,9 @@ public class Command {
 
                 } else {
                     System.out.println(goodsName);
-                    addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
                     CheckPrice check = new CheckPrice(driver, intGoodsPrice);
-                    check.checkPrice();
+                    if (check.checkPrice())
+                        addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
                 }
 
             } else {
