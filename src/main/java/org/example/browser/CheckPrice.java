@@ -8,8 +8,7 @@ import org.openqa.selenium.WebElement;
 public class CheckPrice {
 
     private final WebDriver driver;
-    private int intGoodsPrice;
-    private int intParsePrice;
+    private final int intGoodsPrice;
     int procent;
 
 
@@ -24,17 +23,17 @@ public class CheckPrice {
         TextLinks priceField = TextLinks.PRICE;
         WebElement priceClass = driver.findElement(By.cssSelector(priceField.getString()));
         String[] x = priceClass.getText().split("\\.");
-        intParsePrice = Integer.parseInt(x[0]);
+        int intParsePrice = Integer.parseInt(x[0]);
 
         procent = (intParsePrice / intGoodsPrice) * 100;
-        if (procent < 110) {
+        if (procent < 101) {
             System.out.println("price--" + priceClass.getText() + "**" + intParsePrice + "**" + intGoodsPrice);
             return true;
         }
         return false;
     }
 
-    public String[] getCheckPrice(String goodsName) {
+    public String[] getErrorPrice(String goodsName) {
         System.out.println(goodsName + "Процент разницы: цена на сайте / цену с csv " + procent + "%");
         return new String[]{goodsName, "цена на сайте больше на " + procent + "%"};
     }

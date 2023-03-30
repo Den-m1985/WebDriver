@@ -1,22 +1,17 @@
 package org.example;
 
 import com.opencsv.exceptions.CsvException;
-import org.checkerframework.checker.i18nformatter.qual.I18nFormat;
 import org.example.browser.*;
 import org.example.csvRead.CsvFilter;
-import org.example.csvRead.CsvRead;
 import org.example.oldExel.WrightOldExelArticul;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Command {
     private List<String[]> reportList;
@@ -28,11 +23,20 @@ public class Command {
 
         long start = System.nanoTime();
 
+        reportList = new ArrayList<>();
+
         // Read csv
         int cellName = 0;   // Cell with name or articular
         int cellItem = 3;   // Cell with item to order
         CsvFilter csvFilter = new CsvFilter(pathCSV);
         List<String[]> data = csvFilter.csvFilter(cellName, cellItem);
+        csvFilter.getReportListCsv();
+        if (csvFilter.getReportListCsv() != null) {
+            reportList.add(csvFilter.getReportListCsv());
+            System.out.println(csvFilter.getReportListCsv().length);
+            System.out.println(csvFilter.getReportListCsv()[0]);
+            System.out.println(csvFilter.getReportListCsv()[1]);
+        }
 
         // Open browser
         OpenChromeBrowser openBrowser = new OpenChromeBrowser();
@@ -46,8 +50,10 @@ public class Command {
         // login account
         new LoginPage(wait);
 
-        //ArrayList<String> noFindList = new ArrayList<>();
-        reportList = new ArrayList<>();
+        /*
+        Сделать проверку корзины и ее очистку по запросу.
+         */
+
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
 
@@ -95,24 +101,34 @@ public class Command {
                 // если надо выбрать размер
                 if (size.get(0).getText().length() > 0) {
 
-                    WebElement size2 = driver.findElement(By.className("b1c_option"));
-                    if (size2.getText().contains(goodsSize)) {
-                        Select select1 = new Select(size2);
-                        select1.selectByVisibleText(goodsSize);  // выбираем размер
+                    CommandSelectSize selectSize = new CommandSelectSize(driver, addGoods);
+                    selectSize.commandSelectSize(goodsName, goodsSize, intGoodsPrice, goodsItem);
+                    reportList.add(selectSize.getReportList());
+//                    if (selectSize.getReportList() != null) {
+//                        reportList.add(selectSize.getReportList());
+//                        System.out.println(selectSize.getReportList().length);
+//                        System.out.println(selectSize.getReportList()[0]);
+//                        System.out.println(selectSize.getReportList()[1]);
+//                    }
 
-                        CheckPrice check = new CheckPrice(driver, intGoodsPrice);
-                        if (check.checkPrice()) {
-                            addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-                            System.out.println(goodsName);
-                            System.out.println("успешно выбран");
-
-                        } else reportList.add(check.getCheckPrice(goodsName));
-
-                    } else {
-                        String[] noFind = {goodsName, "ошибка товара с размером"};
-                        reportList.add(noFind);
-                        System.out.println("Не выбрал размер");
-                    }
+//                    WebElement size2 = driver.findElement(By.className("b1c_option"));
+//                    if (size2.getText().contains(goodsSize)) {
+//                        Select select1 = new Select(size2);
+//                        select1.selectByVisibleText(goodsSize);  // выбираем размер
+//
+//                        CheckPrice check = new CheckPrice(driver, intGoodsPrice);
+//                        if (check.checkPrice()) {
+//                            addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+//                            System.out.println(goodsName);
+//                            System.out.println("успешно выбран");
+//
+//                        } else reportList.add(check.getCheckPrice(goodsName));
+//
+//                    } else {
+//                        String[] noFind = {goodsName, "ошибка товара с размером"};
+//                        reportList.add(noFind);
+//                        System.out.println("Не выбрал размер");
+//                    }
 
 
                 } else {
@@ -131,8 +147,11 @@ public class Command {
 
         //driver.close();  //закрываем браузер по завершению
 
-        System.out.println("Кол-во ненайденных товаров: " + reportList.size());
-
+        System.out.println("Кол-во товаров в отчете: " + reportList.size());
+        System.out.println("*******************************************");
+        for (String[] x : reportList) {
+            System.out.println(x.length + "***" + x[0] + "**" + x[1]);
+        }
         new WrightOldExelArticul(reportList);
 
         long end = System.nanoTime();

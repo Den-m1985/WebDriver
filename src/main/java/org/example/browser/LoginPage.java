@@ -19,27 +19,27 @@ public class LoginPage {
 
     void signAccount() {
 
-        // поле Кабинет
+        // field Cabinet
         TextLinks LinksCabinet = TextLinks.CABINET;
         String cabinet =LinksCabinet.getString();
         WebElement clickBay = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(cabinet)));
         clickBay.click();
 
-        // поле ввода логина
+        // field Login
         TextLinks LinksLogin = TextLinks.LOGINFIELD;
         String strLogin =LinksLogin.getString();
         WebElement loginField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strLogin)));
         loginField.click();
         loginField.sendKeys(ConfProperties.getProperty("login"));
 
-        // поле ввода пароля
+        // field Password
         TextLinks LinksPassword = TextLinks.PASSWORDFIELD;
         String strPassword =LinksPassword.getString();
         WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strPassword)));
         passwordField.click();
         passwordField.sendKeys(ConfProperties.getProperty("password"));
 
-        // поле Enter
+        // field Enter
         TextLinks LinksEnter = TextLinks.ENTERACCOUNT;
         String enter =LinksEnter.getString();
         WebElement enterField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(enter)));

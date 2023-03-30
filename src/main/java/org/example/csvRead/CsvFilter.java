@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CsvFilter {
     private final String fileName;
+    private String[] reportList;
 
 
     public CsvFilter(String fileName) {
@@ -32,6 +33,7 @@ public class CsvFilter {
                     // Строка не уникальна - выходим из цикла по поиску уникальных строк
                     isUnique = false;
                     System.out.println("Повтояющееся имя товара: " + row[cellName]);
+                    reportList = new String[]{uniq[cellName], "Повторяются товары"};
                     break;
                 }
             }
@@ -65,6 +67,11 @@ public class CsvFilter {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+
+    public String[] getReportListCsv() {
+        return reportList;
     }
 
 
