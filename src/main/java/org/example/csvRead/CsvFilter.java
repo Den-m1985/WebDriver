@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CsvFilter {
     private final String fileName;
-    private String[] reportList;
+    private List<String[]> duplicateValues;
 
 
     public CsvFilter(String fileName) {
@@ -21,42 +21,74 @@ public class CsvFilter {
         CsvRead csvRead = new CsvRead(fileName);
         List<String[]> rows = csvRead.readCSV();
 
-        List<String[]> dataCSV = new ArrayList<>();
 
-
+        List<String[]> dataWithItem = new ArrayList<>();
+        // check - if cell item is integer?
         for (String[] row : rows) {
-            boolean isUnique = true;
+            if (isInteger(row[cellItem]) && isInteger(row[2]))
+                dataWithItem.add(row);
+        }
 
-            // Проверяем уникальность текущего элемента среди уже имеющихся в новом списке
-            for (String[] uniq : dataCSV) {
-                if (row[cellName].equals(uniq[cellName])) {
-                    // Строка не уникальна - выходим из цикла по поиску уникальных строк
-                    isUnique = false;
-                    System.out.println("Повтояющееся имя товара: " + row[cellName]);
-                    reportList = new String[]{uniq[cellName], "Повторяются товары"};
+        List<String[]> uniqueValues = new ArrayList<>();
+        duplicateValues = new ArrayList<>();
+
+        for (String[] row : dataWithItem) {
+            String name = row[cellName];
+            boolean found = false;
+            for (String[] value : duplicateValues) {
+                if (name.equals(value[cellName])) {
+                    found = true;
                     break;
                 }
             }
 
-            if (isUnique) {
-                // Если проверяемая строка уникальна, добавляем её в список уникальных строк
-                if (isInteger(row[cellItem]))    // check - if cell item is integer?
-                    dataCSV.add(row);
+            if (!found) {
+                for (String[] value : uniqueValues) {
+                    if (name.equals(value[cellName])) {
+                        uniqueValues.remove(value);
+                        String[] error = {name, "Повторяются товары"};
+                        duplicateValues.add(error);
+                        break;
+                    }
+                }
+                uniqueValues.add(row);
             }
         }
 
+//        for (String[] x : duplicateValues) {
+//            System.out.println("Повтояющееся имя товара: " + x[0]);
+//        }
+
+
+//        List<String[]> dataCSV = new ArrayList<>();
+//
+//
+//        for (String[] row : rows) {
+//            boolean isUnique = true;
+//
+//            // Проверяем уникальность текущего элемента среди уже имеющихся в новом списке
+//            for (String[] uniq : dataCSV) {
+//                if (row[cellName].equals(uniq[cellName])) {
+//                    // Строка не уникальна - выходим из цикла по поиску уникальных строк
+//                    isUnique = false;
+//                    System.out.println("Повтояющееся имя товара: " + row[cellName]);
+//                    reportList = new String[]{uniq[cellName], "Повторяются товары"};
+//                    break;
+//                }
+//            }
+//
+//            if (isUnique) {
+//                // Если проверяемая строка уникальна, добавляем её в список уникальных строк
+//                if (isInteger(row[cellItem]))    // check - if cell item is integer?
+//                    dataCSV.add(row);
+//            }
+//        }
 
         TextLinks textLinks = TextLinks.COUNROWSCSV;
         System.out.println();
-        System.out.println(textLinks.getString() + dataCSV.size());
+        System.out.println(textLinks.getString() + uniqueValues.size());
 
-
-
-        /*
-        добавить проверку на отсутствие цены
-         */
-
-        return dataCSV;
+        return uniqueValues;
     }
 
 
@@ -70,8 +102,8 @@ public class CsvFilter {
     }
 
 
-    public String[] getReportListCsv() {
-        return reportList;
+    public List<String[]> getReportListCsv() {
+        return duplicateValues;
     }
 
 

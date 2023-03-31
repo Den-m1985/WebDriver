@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Command {
@@ -30,12 +31,8 @@ public class Command {
         int cellItem = 3;   // Cell with item to order
         CsvFilter csvFilter = new CsvFilter(pathCSV);
         List<String[]> data = csvFilter.csvFilter(cellName, cellItem);
-        csvFilter.getReportListCsv();
         if (csvFilter.getReportListCsv() != null) {
-            reportList.add(csvFilter.getReportListCsv());
-            System.out.println(csvFilter.getReportListCsv().length);
-            System.out.println(csvFilter.getReportListCsv()[0]);
-            System.out.println(csvFilter.getReportListCsv()[1]);
+            reportList.addAll(csvFilter.getReportListCsv());
         }
 
         // Open browser
@@ -50,9 +47,15 @@ public class Command {
         // login account
         new LoginPage(wait);
 
-        /*
-        Сделать проверку корзины и ее очистку по запросу.
-         */
+        // delete shoping cart  TO DO
+        List<WebElement> goodsInCart = driver.findElements(By.className("cart"));
+        for (WebElement x:goodsInCart) {
+            System.out.println(x.getText());
+        }
+        if (goodsInCart.size() > 0) {
+            ShoppingCart shoppingCart = new ShoppingCart(wait);
+            shoppingCart.deleteGoodsInCart();
+        }
 
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
@@ -75,18 +78,12 @@ public class Command {
 
             // находим несколько имен в поисковике
             List<WebElement> products = driver.findElements(By.className("products"));
-//            for (WebElement x : products) {
-//                System.out.println("Несколько товаров" + x + "--" + goodsName);
-//            }
 
             // проверяем на наличие товара
             List<WebElement> product = driver.findElements(By.className("product"));
 
             // проверяем на ниличие выбора размера
             List<WebElement> size = driver.findElements(By.className("b1c_option"));
-//            for (WebElement x : size) {
-//                System.out.println("выбора размера" + x.getText() + "--" + goodsName);
-//            }
 
             // если товара в поисковике более 1шт
             if (products.size() > 0) {
@@ -103,33 +100,12 @@ public class Command {
 
                     CommandSelectSize selectSize = new CommandSelectSize(driver, addGoods);
                     selectSize.commandSelectSize(goodsName, goodsSize, intGoodsPrice, goodsItem);
-                    reportList.add(selectSize.getReportList());
-//                    if (selectSize.getReportList() != null) {
-//                        reportList.add(selectSize.getReportList());
-//                        System.out.println(selectSize.getReportList().length);
-//                        System.out.println(selectSize.getReportList()[0]);
-//                        System.out.println(selectSize.getReportList()[1]);
-//                    }
-
-//                    WebElement size2 = driver.findElement(By.className("b1c_option"));
-//                    if (size2.getText().contains(goodsSize)) {
-//                        Select select1 = new Select(size2);
-//                        select1.selectByVisibleText(goodsSize);  // выбираем размер
-//
-//                        CheckPrice check = new CheckPrice(driver, intGoodsPrice);
-//                        if (check.checkPrice()) {
-//                            addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-//                            System.out.println(goodsName);
-//                            System.out.println("успешно выбран");
-//
-//                        } else reportList.add(check.getCheckPrice(goodsName));
-//
-//                    } else {
-//                        String[] noFind = {goodsName, "ошибка товара с размером"};
-//                        reportList.add(noFind);
-//                        System.out.println("Не выбрал размер");
-//                    }
-
+                    if (selectSize.getReportList() != null) {
+                        reportList.add(selectSize.getReportList());
+                        //System.out.println(selectSize.getReportList().length);
+                        //System.out.println(selectSize.getReportList()[0]);
+                        //System.out.println(selectSize.getReportList()[1]);
+                    }
 
                 } else {
                     System.out.println(goodsName);
@@ -147,11 +123,11 @@ public class Command {
 
         //driver.close();  //закрываем браузер по завершению
 
-        System.out.println("Кол-во товаров в отчете: " + reportList.size());
-        System.out.println("*******************************************");
-        for (String[] x : reportList) {
-            System.out.println(x.length + "***" + x[0] + "**" + x[1]);
-        }
+//        System.out.println("Кол-во товаров в отчете: " + reportList.size());
+//        System.out.println("*******************************************");
+//        for (String[] x : reportList) {
+//            System.out.println(x.length + "***" + x[0] + "**" + x[1]);
+//        }
         new WrightOldExelArticul(reportList);
 
         long end = System.nanoTime();

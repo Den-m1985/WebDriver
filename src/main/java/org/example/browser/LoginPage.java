@@ -19,31 +19,42 @@ public class LoginPage {
 
     void signAccount() {
 
+        XPathWait pathWait = new XPathWait(wait);
+
         // field Cabinet
         TextLinks LinksCabinet = TextLinks.CABINET;
-        String cabinet =LinksCabinet.getString();
-        WebElement clickBay = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(cabinet)));
+        //String cabinet =LinksCabinet.getString();
+        WebElement clickBay = pathWait.xPath(LinksCabinet.getString());
+        //WebElement clickBay = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(cabinet)));
         clickBay.click();
 
         // field Login
         TextLinks LinksLogin = TextLinks.LOGINFIELD;
-        String strLogin =LinksLogin.getString();
-        WebElement loginField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strLogin)));
+        //String strLogin =LinksLogin.getString();
+        WebElement loginField = pathWait.xPath(LinksLogin.getString());
+        //WebElement loginField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strLogin)));
         loginField.click();
         loginField.sendKeys(ConfProperties.getProperty("login"));
 
         // field Password
         TextLinks LinksPassword = TextLinks.PASSWORDFIELD;
-        String strPassword =LinksPassword.getString();
-        WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strPassword)));
+        //String strPassword =LinksPassword.getString();
+        WebElement passwordField = pathWait.xPath(LinksPassword.getString());
+        //WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strPassword)));
         passwordField.click();
         passwordField.sendKeys(ConfProperties.getProperty("password"));
+        /*
+        Добавить замену пароля, чтоб не чисел в буфере.
+         */
+
 
         // field Enter
         TextLinks LinksEnter = TextLinks.ENTERACCOUNT;
-        String enter =LinksEnter.getString();
-        WebElement enterField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(enter)));
+        //String enter =LinksEnter.getString();
+        WebElement enterField = pathWait.xPath(LinksEnter.getString());
+        //WebElement enterField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(enter)));
         enterField.click();
+
     }
 
 

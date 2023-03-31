@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 public class CommandSelectSize {
     private final WebDriver driver;
     private final AddGoods addGoods;
-    private String[] reportList = {,};
+    private String[] reportList;
 
     public CommandSelectSize(WebDriver driver, AddGoods addGoods) {
         this.driver = driver;
