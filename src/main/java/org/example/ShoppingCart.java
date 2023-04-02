@@ -13,15 +13,21 @@ public class ShoppingCart {
         this.wait = wait;
     }
 
+    public void clickCart() {
+        XPathWait pathWait = new XPathWait(wait);
+
+        TextLinks linkCart = TextLinks.FIELDCART;
+        WebElement buttonSearch = pathWait.xPath(linkCart.getString());
+        buttonSearch.click();
+    }
+
 
     void deleteGoodsInCart() {
-
         XPathWait pathWait = new XPathWait(wait);
 
         TextLinks linkButtonSearch = TextLinks.BUTTONSEARCH;
         WebElement buttonSearch = pathWait.xPath(linkButtonSearch.getString());
         buttonSearch.click();
-
     }
 
 

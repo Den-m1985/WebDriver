@@ -14,6 +14,7 @@ public enum TextLinks {
     CLOUDWINDOW("//*[@id=\"fancybox-wrap\"]"),  // всплывающее окно
     CLOSEWINDOW("//*[@id=\"fancybox-close\"]"),  //закрыть всплывающее окно
     PRICE("#content > div > div.description > form > div > div.price > span.price"),  // поле цены
+    FIELDCART("//*[@id=\"adapt-hdr\"]/section[2]"),  // поле открыть корзину.
     OPENFILEPATH("Downloads"),  //открываем и сохраняем папку по умолчанию
     COUNROWSCSV("количество товаров в csv: "),
     SHEET("Sheet1"),  // имя страницы в отчете

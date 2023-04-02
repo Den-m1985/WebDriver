@@ -49,11 +49,11 @@ public class Command {
 
         // delete shoping cart  TO DO
         List<WebElement> goodsInCart = driver.findElements(By.className("cart"));
+        ShoppingCart shoppingCart = new ShoppingCart(wait);
         for (WebElement x:goodsInCart) {
             System.out.println(x.getText());
         }
         if (goodsInCart.size() > 0) {
-            ShoppingCart shoppingCart = new ShoppingCart(wait);
             shoppingCart.deleteGoodsInCart();
         }
 
@@ -87,7 +87,6 @@ public class Command {
 
             // если товара в поисковике более 1шт
             if (products.size() > 0) {
-                //noFindList.add(goodsName);
                 System.out.println("Товаров более 1шт." + goodsName);
                 String[] noFind = {goodsName, "товаров более 1шт."};
                 reportList.add(noFind);
@@ -120,14 +119,10 @@ public class Command {
                 reportList.add(noFind);
             }
         }
-
+        // по завершению заходим в корзину
+        shoppingCart.clickCart();
         //driver.close();  //закрываем браузер по завершению
 
-//        System.out.println("Кол-во товаров в отчете: " + reportList.size());
-//        System.out.println("*******************************************");
-//        for (String[] x : reportList) {
-//            System.out.println(x.length + "***" + x[0] + "**" + x[1]);
-//        }
         new WrightOldExelArticul(reportList);
 
         long end = System.nanoTime();
