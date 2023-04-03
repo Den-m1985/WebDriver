@@ -20,7 +20,7 @@ public class Command {
     public Command() {
     }
 
-    public void startProgram(String pathCSV) throws IOException, CsvException {
+    public void startProgram(String pathCSV) throws IOException, CsvException, InterruptedException {
 
         long start = System.nanoTime();
 
@@ -50,31 +50,36 @@ public class Command {
         // delete shoping cart  TO DO
         List<WebElement> goodsInCart = driver.findElements(By.className("cart"));
         ShoppingCart shoppingCart = new ShoppingCart(wait);
-        for (WebElement x:goodsInCart) {
+        for (WebElement x : goodsInCart) {
             System.out.println(x.getText());
         }
-        if (goodsInCart.size() > 0) {
-            shoppingCart.deleteGoodsInCart();
-        }
+//        if (goodsInCart.size() > 0) {
+//            shoppingCart.deleteGoodsInCart();
+//        }
 
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
-
+        int i = 1;
         for (String[] goods : data) {
             String goodsName = goods[0];
             String goodsSize = goods[1];
             int intGoodsPrice = Integer.parseInt(goods[2]);
             String goodsItem = goods[3];
 
+            //если всплывает окно, то закрываем.
+//            WebElement cloudWindow = driver.findElement(By.id("dontgo"));
+//            System.out.println(cloudWindow.isDisplayed());
+//            if (cloudWindow.isDisplayed()) {
+//                TextLinks closeWindow = TextLinks.CLOSEWINDOW;
+//                cloudWindow.findElement(By.xpath(closeWindow.getString())).click();
+//            }
 
-            // Надо реализовать - если всплывает окно, то нужно закрыть, а упадем в ошибку.
-            //WebElement cloudWindow = driver.findElement(By.id("fancybox-wrap"));
-            //TextLinks closeWindow = TextLinks.CLOSEWINDOW;
-            //cloudWindow.findElement(By.xpath(closeWindow.getString())).click();
-            // хотя если программа работает, то и окго не выходит.
+            new ClowdWindow(driver, i);
 
             // Search goods
             searchGoods.searchProduct(goodsName);
+
+            new ClowdWindow(driver, i);
 
             // находим несколько имен в поисковике
             List<WebElement> products = driver.findElements(By.className("products"));
@@ -87,7 +92,7 @@ public class Command {
 
             // если товара в поисковике более 1шт
             if (products.size() > 0) {
-                System.out.println("Товаров более 1шт." + goodsName);
+                //System.out.println("Товаров более 1шт." + goodsName);
                 String[] noFind = {goodsName, "товаров более 1шт."};
                 reportList.add(noFind);
 
@@ -99,6 +104,7 @@ public class Command {
 
                     CommandSelectSize selectSize = new CommandSelectSize(driver, addGoods);
                     selectSize.commandSelectSize(goodsName, goodsSize, intGoodsPrice, goodsItem);
+                    new ClowdWindow(driver, i);
                     if (selectSize.getReportList() != null) {
                         reportList.add(selectSize.getReportList());
                         //System.out.println(selectSize.getReportList().length);
@@ -107,10 +113,12 @@ public class Command {
                     }
 
                 } else {
-                    System.out.println(goodsName);
+                    //System.out.println(goodsName);
                     CheckPrice check = new CheckPrice(driver, intGoodsPrice);
-                    if (check.checkPrice())
+                    if (check.checkPrice()) {
                         addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+                        new ClowdWindow(driver, i);
+                    }
                 }
 
             } else {
@@ -118,9 +126,11 @@ public class Command {
                 String[] noFind = {goodsName, "товар НЕ найден"};
                 reportList.add(noFind);
             }
+            i++;
         }
         // по завершению заходим в корзину
-        shoppingCart.clickCart();
+        ShoppingCart shoppingCart2 = new ShoppingCart(wait);
+        shoppingCart2.clickCart();
         //driver.close();  //закрываем браузер по завершению
 
         new WrightOldExelArticul(reportList);

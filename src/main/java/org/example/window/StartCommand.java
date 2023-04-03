@@ -37,7 +37,7 @@ public class StartCommand implements ActionListener {
         try {
             command.startProgram(pathCSV);
 
-        } catch (IOException | CsvException ex) {
+        } catch (IOException | CsvException | InterruptedException ex) {
             throw new RuntimeException(ex);
         }
 

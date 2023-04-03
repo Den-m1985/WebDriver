@@ -27,7 +27,7 @@ public class CheckPrice {
 
         procent = (intParsePrice / intGoodsPrice) * 100;
         if (procent < 101) {
-            System.out.println("price--" + priceClass.getText() + "**" + intParsePrice + "**" + intGoodsPrice);
+            //System.out.println("price--" + priceClass.getText() + "**" + intParsePrice + "**" + intGoodsPrice);
             return true;
         }
         return false;

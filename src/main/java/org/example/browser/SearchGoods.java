@@ -13,7 +13,7 @@ public class SearchGoods {
     }
 
 
-    public void searchProduct(String article) {
+    public void searchProduct(String article) throws InterruptedException {
 
         XPathWait pathWait = new XPathWait(wait);
 
@@ -24,6 +24,7 @@ public class SearchGoods {
 
         TextLinks linkButtonSearch = TextLinks.BUTTONSEARCH;
         WebElement buttonSearch = pathWait.xPath(linkButtonSearch.getString());
+        //Thread.sleep(1000);
         buttonSearch.click();
 
     }
