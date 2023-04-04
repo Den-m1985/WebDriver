@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Command {
@@ -29,7 +28,7 @@ public class Command {
         // Read csv
         int cellName = 0;   // Cell with name or articular
         int cellItem = 3;   // Cell with item to order
-        CsvFilter csvFilter = new CsvFilter(pathCSV);
+        CsvFilter csvFilter = new CsvFilter(pathCSV, reportList);
         List<String[]> data = csvFilter.csvFilter(cellName, cellItem);
         if (csvFilter.getReportListCsv() != null) {
             reportList.addAll(csvFilter.getReportListCsv());

@@ -9,11 +9,12 @@ import java.util.List;
 
 public class CsvFilter {
     private final String fileName;
-    private List<String[]> duplicateValues;
+    private final List<String[]> duplicateValues;
 
 
-    public CsvFilter(String fileName) {
+    public CsvFilter(String fileName, List<String[]> duplicateValues) {
         this.fileName = fileName;
+        this.duplicateValues = duplicateValues;
     }
 
     public List<String[]> csvFilter(int cellName, int cellItem) throws IOException, CsvException {
