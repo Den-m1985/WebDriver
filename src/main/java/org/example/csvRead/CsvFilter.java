@@ -29,60 +29,56 @@ public class CsvFilter {
                 dataWithItem.add(row);
         }
 
-        List<String[]> uniqueValues = new ArrayList<>();
-        duplicateValues = new ArrayList<>();
 
+        List<String[]> uniqueValues = new ArrayList<>();
+        int i = 0;
         for (String[] row : dataWithItem) {
             String name = row[cellName];
-            boolean found = false;
-            for (String[] value : duplicateValues) {
-                if (name.equals(value[cellName])) {
-                    found = true;
-                    break;
-                }
-            }
 
-            if (!found) {
-                for (String[] value : uniqueValues) {
-                    if (name.equals(value[cellName])) {
-                        uniqueValues.remove(value);
+            for (String[] value : dataWithItem) {
+                String name2 = value[cellName];
+                if (name.equals(name2)) {
+                    i++;
+                    if (i==2) {
                         String[] error = {name, "Повторяются товары"};
                         duplicateValues.add(error);
                         break;
                     }
                 }
+            }
+            if (i == 1) {
                 uniqueValues.add(row);
             }
+            i = 0;
         }
 
-//        for (String[] x : duplicateValues) {
-//            System.out.println("Повтояющееся имя товара: " + x[0]);
-//        }
 
 
-//        List<String[]> dataCSV = new ArrayList<>();
+//        duplicateValues = new ArrayList<>();
 //
-//
-//        for (String[] row : rows) {
-//            boolean isUnique = true;
-//
-//            // Проверяем уникальность текущего элемента среди уже имеющихся в новом списке
-//            for (String[] uniq : dataCSV) {
-//                if (row[cellName].equals(uniq[cellName])) {
-//                    // Строка не уникальна - выходим из цикла по поиску уникальных строк
-//                    isUnique = false;
-//                    System.out.println("Повтояющееся имя товара: " + row[cellName]);
-//                    reportList = new String[]{uniq[cellName], "Повторяются товары"};
+//        for (String[] row : dataWithItem) {
+//            String name = row[cellName];
+//            boolean found = false;
+//            for (String[] value : duplicateValues) {
+//                if (name.equals(value[cellName])) {
+//                    found = true;
 //                    break;
 //                }
 //            }
 //
-//            if (isUnique) {
-//                // Если проверяемая строка уникальна, добавляем её в список уникальных строк
-//                if (isInteger(row[cellItem]))    // check - if cell item is integer?
-//                    dataCSV.add(row);
+//            if (!found) {
+//                for (String[] value : uniqueValues) {
+//                    if (name.equals(value[cellName])) {
+//                        uniqueValues.remove(value);
+//                        String[] error = {name, "Повторяются товары"};
+//                        duplicateValues.add(error);
+//                        break;
+//                    }
+//                }
+//                uniqueValues.add(row);
 //            }
 //        }
+
 
         TextLinks textLinks = TextLinks.COUNROWSCSV;
         System.out.println();

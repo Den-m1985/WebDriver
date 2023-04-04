@@ -28,9 +28,11 @@ public class CommandSelectSize {
             Select select1 = new Select(size2);
             select1.selectByVisibleText(goodsSize);  // выбираем размер
 
+            new ClowdWindow(driver);
+
             CheckPrice check = new CheckPrice(driver, intGoodsPrice);
             if (check.checkPrice()) {
-                addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
+                addGoods.addGoods(goodsItem, driver);  // товар найден, добавляем в корзину
                 //System.out.println(goodsName);
 
             } else reportList = check.getErrorPrice(goodsName);

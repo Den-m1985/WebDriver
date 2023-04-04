@@ -7,13 +7,14 @@ import org.openqa.selenium.WebElement;
 
 public class ClowdWindow {
 
-    public ClowdWindow(WebDriver driver, int i) {
+    public ClowdWindow(WebDriver driver) {
 
         WebElement cloudWindow = driver.findElement(By.id("dontgo"));
         if (cloudWindow.isDisplayed()) {
             TextLinks closeWindow = TextLinks.CLOSEWINDOW;
-            cloudWindow.findElement(By.xpath(closeWindow.getString())).click();
-            System.out.println("Попался" + i);
+            cloudWindow.findElement(By.xpath(closeWindow.getString()));
+            cloudWindow.click();
+            System.out.println("Всплывающее окно");
         }
     }
 }

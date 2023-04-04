@@ -44,8 +44,12 @@ public class Command {
         // Open website
         new OpenWebSite(driver);
 
+        new ClowdWindow(driver);
+
         // login account
         new LoginPage(wait);
+
+        new ClowdWindow(driver);
 
         // delete shoping cart  TO DO
         List<WebElement> goodsInCart = driver.findElements(By.className("cart"));
@@ -59,7 +63,7 @@ public class Command {
 
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
-        int i = 1;
+
         for (String[] goods : data) {
             String goodsName = goods[0];
             String goodsSize = goods[1];
@@ -74,12 +78,12 @@ public class Command {
 //                cloudWindow.findElement(By.xpath(closeWindow.getString())).click();
 //            }
 
-            new ClowdWindow(driver, i);
+            new ClowdWindow(driver);
 
             // Search goods
-            searchGoods.searchProduct(goodsName);
+            searchGoods.searchProduct(goodsName, driver);
 
-            new ClowdWindow(driver, i);
+            new ClowdWindow(driver);
 
             // находим несколько имен в поисковике
             List<WebElement> products = driver.findElements(By.className("products"));
@@ -104,7 +108,8 @@ public class Command {
 
                     CommandSelectSize selectSize = new CommandSelectSize(driver, addGoods);
                     selectSize.commandSelectSize(goodsName, goodsSize, intGoodsPrice, goodsItem);
-                    new ClowdWindow(driver, i);
+                    new ClowdWindow(driver);
+
                     if (selectSize.getReportList() != null) {
                         reportList.add(selectSize.getReportList());
                         //System.out.println(selectSize.getReportList().length);
@@ -116,19 +121,19 @@ public class Command {
                     //System.out.println(goodsName);
                     CheckPrice check = new CheckPrice(driver, intGoodsPrice);
                     if (check.checkPrice()) {
-                        addGoods.addGoods(goodsItem);  // товар найден, добавляем в корзину
-                        new ClowdWindow(driver, i);
+                        addGoods.addGoods(goodsItem, driver);  // товар найден, добавляем в корзину
+                        new ClowdWindow(driver);
                     }
                 }
 
             } else {
-                //noFindList.add(goodsName);
                 String[] noFind = {goodsName, "товар НЕ найден"};
                 reportList.add(noFind);
             }
-            i++;
         }
+
         // по завершению заходим в корзину
+        new ClowdWindow(driver);
         ShoppingCart shoppingCart2 = new ShoppingCart(wait);
         shoppingCart2.clickCart();
         //driver.close();  //закрываем браузер по завершению

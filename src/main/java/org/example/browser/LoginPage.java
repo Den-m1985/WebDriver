@@ -23,26 +23,22 @@ public class LoginPage {
 
         // field Cabinet
         TextLinks LinksCabinet = TextLinks.CABINET;
-        //String cabinet =LinksCabinet.getString();
         WebElement clickBay = pathWait.xPath(LinksCabinet.getString());
-        //WebElement clickBay = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(cabinet)));
         clickBay.click();
 
         // field Login
         TextLinks LinksLogin = TextLinks.LOGINFIELD;
-        //String strLogin =LinksLogin.getString();
         WebElement loginField = pathWait.xPath(LinksLogin.getString());
-        //WebElement loginField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strLogin)));
         loginField.click();
-        loginField.sendKeys(ConfProperties.getProperty("login"));
+        //loginField.sendKeys(ConfProperties.getProperty("login"));
+        loginField.sendKeys("");
 
         // field Password
         TextLinks LinksPassword = TextLinks.PASSWORDFIELD;
-        //String strPassword =LinksPassword.getString();
         WebElement passwordField = pathWait.xPath(LinksPassword.getString());
-        //WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(strPassword)));
         passwordField.click();
-        passwordField.sendKeys(ConfProperties.getProperty("password"));
+        //passwordField.sendKeys(ConfProperties.getProperty("password"));
+        passwordField.sendKeys("");
         /*
         Добавить замену пароля, чтоб не чисел в буфере.
          */
@@ -50,9 +46,7 @@ public class LoginPage {
 
         // field Enter
         TextLinks LinksEnter = TextLinks.ENTERACCOUNT;
-        //String enter =LinksEnter.getString();
         WebElement enterField = pathWait.xPath(LinksEnter.getString());
-        //WebElement enterField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(enter)));
         enterField.click();
 
     }
