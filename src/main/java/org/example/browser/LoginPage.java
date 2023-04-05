@@ -31,14 +31,14 @@ public class LoginPage {
         WebElement loginField = pathWait.xPath(LinksLogin.getString());
         loginField.click();
         //loginField.sendKeys(ConfProperties.getProperty("login"));
-        loginField.sendKeys("");
+        loginField.sendKeys("kashleva88@mail.ru");
 
         // field Password
         TextLinks LinksPassword = TextLinks.PASSWORDFIELD;
         WebElement passwordField = pathWait.xPath(LinksPassword.getString());
         passwordField.click();
         //passwordField.sendKeys(ConfProperties.getProperty("password"));
-        passwordField.sendKeys("");
+        passwordField.sendKeys("marusia");
         /*
         Добавить замену пароля, чтоб не чисел в буфере.
          */

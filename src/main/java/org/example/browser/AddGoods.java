@@ -14,7 +14,7 @@ public class AddGoods {
     }
 
 
-    public void addGoods(String item,  WebDriver driver){
+    public void addGoods(String item,  WebDriver driver) throws InterruptedException {
 
         XPathWait xPathWait = new XPathWait(wait);
 
