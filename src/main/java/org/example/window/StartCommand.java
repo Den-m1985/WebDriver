@@ -4,6 +4,8 @@ import org.example.Command;
 import com.opencsv.exceptions.CsvException;
 import org.example.TextLinks;
 import org.example.createPathFile.GetPathFile;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -40,7 +42,7 @@ public class StartCommand implements ActionListener {
         } catch (IOException | CsvException | InterruptedException ex) {
             throw new RuntimeException(ex);
         }
-
+        JOptionPane.showMessageDialog(null,"Успешно");
     }
 
 }
