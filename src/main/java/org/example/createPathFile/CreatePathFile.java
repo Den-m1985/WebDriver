@@ -15,7 +15,7 @@ public class CreatePathFile {
         Date date = new Date();
         String str = date.currentDate();
 
-        TextLinks textLinks = TextLinks.OPENFILEPATH;
+        TextLinks textLinks = TextLinks.SAVEFILEPATH;
         String defaultFolder = textLinks.getString();
 
         return System.getProperty("user.home") + File.separator +

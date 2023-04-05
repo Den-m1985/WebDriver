@@ -4,6 +4,7 @@ import org.example.TextLinks;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.File;
 
 public class GetPathFile {
@@ -14,6 +15,7 @@ public class GetPathFile {
 
         JFileChooser fileOpen = new JFileChooser();
 
+        fileOpen.setPreferredSize(new Dimension(600, 500)); // window size
         FileNameExtensionFilter filter = new FileNameExtensionFilter("files " + extension, extension);
         fileOpen.setFileFilter(filter);
 
