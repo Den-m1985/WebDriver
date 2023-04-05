@@ -2,6 +2,7 @@ package org.example;
 
 import com.opencsv.exceptions.CsvException;
 import org.example.browser.*;
+import org.example.browser.chrome.OpenChrome;
 import org.example.csvRead.CsvFilter;
 import org.example.oldExel.WrightOldExelArticul;
 import org.openqa.selenium.By;
@@ -30,15 +31,11 @@ public class Command {
         int cellItem = 3;   // Cell with item to order
         CsvFilter csvFilter = new CsvFilter(pathCSV, reportList);
         List<String[]> data = csvFilter.csvFilter(cellName, cellItem);
-        if (csvFilter.getReportListCsv() != null) {
-            reportList.addAll(csvFilter.getReportListCsv());
-        }
 
         // Open browser
-        OpenChromeBrowser openBrowser = new OpenChromeBrowser();
-        openBrowser.openChrome();
-        WebDriver driver = openBrowser.getDriver();
-        WebDriverWait wait = openBrowser.getWait();
+        OpenChrome openChrome = new OpenChrome();
+        WebDriver driver = openChrome.getDriver();
+        WebDriverWait wait = openChrome.getWait();
 
         // Open website
         new OpenWebSite(driver);
@@ -52,13 +49,10 @@ public class Command {
 
         // delete shoping cart  TO DO
         List<WebElement> goodsInCart = driver.findElements(By.className("cart"));
-        ShoppingCart shoppingCart = new ShoppingCart(wait);
+        //ShoppingCart shoppingCart = new ShoppingCart(wait);
         for (WebElement x : goodsInCart) {
             System.out.println(x.getText());
         }
-//        if (goodsInCart.size() > 0) {
-//            shoppingCart.deleteGoodsInCart();
-//        }
 
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);

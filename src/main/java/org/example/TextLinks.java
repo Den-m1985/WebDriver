@@ -11,7 +11,6 @@ public enum TextLinks {
     ADDITEM("//*[@id=\"content\"]/div/div[2]/form/div/div[1]/span[1]/input"),  //поле добавить кол-во
     SIZE("//*[@id=\"content\"]/div/div[2]/form/div/select"),  //поле выбра размера
     CLICKBAY("//*[@id=\"content\"]/div/div[2]/form/div/input"),  //поле добавить в корзину
-    CLOUDWINDOW("//*[@id=\"fancybox-wrap\"]"),  // всплывающее окно
     CLOSEWINDOW("//*[@id=\"fancybox-close\"]"),  //закрыть всплывающее окно
     PRICE("#content > div > div.description > form > div > div.price > span.price"),  // поле цены
     FIELDCART("//*[@id=\"cart_informer\"]"),  // поле открыть корзину.
