@@ -9,12 +9,12 @@ import java.util.List;
 
 public class CsvFilter {
     private final String fileName;
-    private final List<String[]> duplicateValues;
+    private final List<String[]> reportList;
 
 
     public CsvFilter(String fileName, List<String[]> duplicateValues) {
         this.fileName = fileName;
-        this.duplicateValues = duplicateValues;
+        this.reportList = duplicateValues;
     }
 
     public List<String[]> csvFilter(int cellName, int cellItem) throws IOException, CsvException {
@@ -22,14 +22,12 @@ public class CsvFilter {
         CsvRead csvRead = new CsvRead(fileName);
         List<String[]> rows = csvRead.readCSV();
 
-
         List<String[]> dataWithItem = new ArrayList<>();
         // check - if cell item is integer?
         for (String[] row : rows) {
             if (isInteger(row[cellItem]) && isInteger(row[2]))
                 dataWithItem.add(row);
         }
-
 
         List<String[]> uniqueValues = new ArrayList<>();
         int i = 0;
@@ -42,7 +40,7 @@ public class CsvFilter {
                     i++;
                     if (i==2) {
                         String[] error = {name, "Повторяются товары"};
-                        duplicateValues.add(error);
+                        reportList.add(error);
                         break;
                     }
                 }
@@ -52,34 +50,6 @@ public class CsvFilter {
             }
             i = 0;
         }
-
-
-
-//        duplicateValues = new ArrayList<>();
-//
-//        for (String[] row : dataWithItem) {
-//            String name = row[cellName];
-//            boolean found = false;
-//            for (String[] value : duplicateValues) {
-//                if (name.equals(value[cellName])) {
-//                    found = true;
-//                    break;
-//                }
-//            }
-//
-//            if (!found) {
-//                for (String[] value : uniqueValues) {
-//                    if (name.equals(value[cellName])) {
-//                        uniqueValues.remove(value);
-//                        String[] error = {name, "Повторяются товары"};
-//                        duplicateValues.add(error);
-//                        break;
-//                    }
-//                }
-//                uniqueValues.add(row);
-//            }
-//        }
-
 
         TextLinks textLinks = TextLinks.COUNROWSCSV;
         System.out.println();
@@ -96,11 +66,6 @@ public class CsvFilter {
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-
-    public List<String[]> getReportListCsv() {
-        return duplicateValues;
     }
 
 
