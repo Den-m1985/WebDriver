@@ -43,7 +43,6 @@ public class SearchAndAdd {
 
         // если товара в поисковике более 1шт
         if (products.size() > 0) {
-            //System.out.println("Товаров более 1шт." + goodsName);
             String[] noFind = {goodsName, "товаров более 1шт."};
             reportList.add(noFind);
 
@@ -66,7 +65,7 @@ public class SearchAndAdd {
                 if (check.checkPrice()) {
                     addGoods.addGoods(goodsItem, driver);  // товар найден, добавляем в корзину
                     new ClowdWindow(driver);
-                }
+                } else reportList.add(check.getErrorPrice(goodsName));
             }
         } else {
             String[] noFind = {goodsName, "товар НЕ найден"};
