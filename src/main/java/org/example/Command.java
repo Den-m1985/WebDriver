@@ -29,9 +29,11 @@ public class Command {
 
         // Read csv
         int cellName = 0;   // Cell with name or articular
+        int cellPrice = 2;
         int cellItem = 3;   // Cell with item to order
         CsvFilter csvFilter = new CsvFilter(pathCSV, reportList);
-        List<String[]> data = csvFilter.csvFilter(cellName, cellItem);
+        List<String[]> data = csvFilter.csvFilter(cellName, cellPrice, cellItem);
+
 
         // Open browser
         OpenChrome openChrome = new OpenChrome();
