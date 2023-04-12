@@ -23,18 +23,20 @@ public class CheckPrice {
         TextLinks priceField = TextLinks.PRICE;
         WebElement priceClass = driver.findElement(By.cssSelector(priceField.getString()));
         String[] x = priceClass.getText().split("\\.");
-        int intParsePrice = Integer.parseInt(x[0]);
+        String webPrice = x[0];
 
-        procent = (intParsePrice / intGoodsPrice) * 100;
+        if (webPrice.contains(" ")) {
+            webPrice = webPrice.replaceAll(" ", "");
+        }
+        int intParsePrice = Integer.parseInt(webPrice);
+        procent = (intParsePrice * 100) / intGoodsPrice;
         if (procent < 101) {
-            //System.out.println("price--" + priceClass.getText() + "**" + intParsePrice + "**" + intGoodsPrice);
             return true;
         }
         return false;
     }
 
     public String[] getErrorPrice(String goodsName) {
-        System.out.println(goodsName + "Процент разницы: цена на сайте / цену с csv " + procent + "%");
         return new String[]{goodsName, "цена на сайте больше на " + procent + "%"};
     }
 
