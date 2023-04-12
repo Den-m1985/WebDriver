@@ -18,29 +18,21 @@ public class CommandSelectSize {
 
     public void commandSelectSize(String goodsName, String goodsSize, int intGoodsPrice, String goodsItem) throws InterruptedException {
 
-        WebElement size2 = driver.findElement(By.className("b1c_option"));
+        WebElement size = driver.findElement(By.className("b1c_option"));
 
-        String text = size2.getText();
-        //System.out.println(goodsName + "*****Выбор размера*****" + size2.getText() + "--" + goodsSize);
-        //System.out.println(size2.getText().contains(goodsSize));
+        String text = size.getText();
         if (text.contains(goodsSize)) {
-
-            Select select1 = new Select(size2);
-            select1.selectByVisibleText(goodsSize);  // выбираем размер
+            Select select = new Select(size);
+            select.selectByVisibleText(goodsSize);  // выбираем размер
 
             new ClowdWindow(driver);
 
             CheckPrice check = new CheckPrice(driver, intGoodsPrice);
             if (check.checkPrice()) {
                 addGoods.addGoods(goodsItem, driver);  // товар найден, добавляем в корзину
-                //System.out.println(goodsName);
-
             } else reportList = check.getErrorPrice(goodsName);
-
         } else {
             reportList = new String[]{goodsName, "ошибка товара с размером"};
-
-            //System.out.println("Не выбрал размер");
         }
     }
 
