@@ -16,7 +16,7 @@ public class CommandSelectSize {
     }
 
 
-    public void commandSelectSize(String goodsName, String goodsSize, int intGoodsPrice, String goodsItem) throws InterruptedException {
+    public void commandSelectSize(String goodsName, String goodsSize, int intGoodsPrice, int goodsItem) throws InterruptedException {
 
         WebElement size = driver.findElement(By.className("b1c_option"));
 
