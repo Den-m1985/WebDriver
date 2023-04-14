@@ -6,13 +6,24 @@ import java.util.List;
 public class OnlyGoods {
 
 
-    public List<String[]> onlyGoods(List<String[]> rows, int cellPrice, int cellItem) {
+    public List<StructureCSV> onlyGoods(List<String[]> rows, int cellPrice, int cellItem) {
 
-        List<String[]> dataWithItem = new ArrayList<>();
+        List<StructureCSV> dataWithItem = new ArrayList<>();
         for (String[] row : rows) {
-            if (isInteger(row[cellItem]) && isInteger(row[cellPrice]))
-                dataWithItem.add(row);
+            if (isInteger(row[cellItem]) && isInteger(row[cellPrice])) {
+                int price = Integer.parseInt(row[cellPrice]);
+                int item = Integer.parseInt(row[cellItem]);
+
+                dataWithItem.add(new StructureCSV(row[0], row[1], price, item));
+            }
         }
+
+
+//        List<String[]> dataWithItem = new ArrayList<>();
+//        for (String[] row : rows) {
+//            if (isInteger(row[cellItem]) && isInteger(row[cellPrice]))
+//                dataWithItem.add(row);
+//        }
         return dataWithItem;
     }
 
