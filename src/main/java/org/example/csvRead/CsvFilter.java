@@ -2,10 +2,7 @@ package org.example.csvRead;
 
 import com.opencsv.exceptions.CsvException;
 import org.example.TextLinks;
-import org.example.csvRead.csv.CsvRead;
-import org.example.csvRead.csv.DuplicateGoods;
-import org.example.csvRead.csv.OnlyGoods;
-import org.example.csvRead.csv.UniqueGoods;
+import org.example.csvRead.csv.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,33 +15,33 @@ public class CsvFilter {
         this.fileName = fileName;
     }
 
-    public List<String[]> csvFilter(int cellName, int cellPrice, int cellItem) throws IOException, CsvException {
+    public List<StructureCSV> csvFilter(int cellPrice, int cellItem) throws IOException, CsvException {
 
         CsvRead csvRead = new CsvRead(fileName);
         List<String[]> rows = csvRead.readCSV();
 
         // В этом блоке оставляем только те колонки где есть цена и кол-во
-        List<String[]> dataWithItem = new OnlyGoods().onlyGoods(rows, cellPrice, cellItem);
+        List<StructureCSV> dataWithItem = new OnlyGoods().onlyGoods(rows, cellPrice, cellItem);
 
         // этот блок возвращает иникальные элементы
         UniqueGoods uniqueGoods = new UniqueGoods();
-        List<String[]> uniqueValues = uniqueGoods.uniqueGoods(dataWithItem, cellName);
-        List<String[]> duplicateNames = uniqueGoods.getDuplicateNames();
+        List<StructureCSV> uniqueValues = uniqueGoods.uniqueGoods(dataWithItem);
+        List<StructureCSV> duplicateNames = uniqueGoods.getDuplicateNames();
 
         // этот блок работатет с повторяющимися именами.
-        List<String[]> resolveDuplicatedNames = new DuplicateGoods().duplicateGoods(duplicateNames);
+        List<StructureCSV> resolveDuplicatedNames = new DuplicateGoods().duplicateGoods(duplicateNames);
         uniqueValues.addAll(resolveDuplicatedNames);
 
         TextLinks textLinks = TextLinks.COUNROWSCSV;
         System.out.println();
         System.out.println(textLinks.getString() + uniqueValues.size());
 
-//        for (String[]x:duplicateNames) {
-//            System.out.println(x[0] + "----" + x[1] + "----" + x[3]);
+//        for (StructureCSV x:duplicateNames) {
+//            System.out.println(x.getName() + "----" + x.getArtucul() + "----" + x.getItem());
 //        }
 //        System.out.println();
-//        for (String[]x:resolveDuplicatedNames) {
-//            System.out.println(x[0] + "----" + x[1] + "----" + x[3]);
+//        for (StructureCSV x:resolveDuplicatedNames) {
+//            System.out.println(x.getName() + "----" + x.getArtucul() + "----" + x.getItem());
 //        }
         return uniqueValues;
     }
