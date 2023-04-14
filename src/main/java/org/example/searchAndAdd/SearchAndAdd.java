@@ -1,6 +1,7 @@
 package org.example.searchAndAdd;
 
 import org.example.browser.*;
+import org.example.csvRead.csv.StructureCSV;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,11 +20,15 @@ public class SearchAndAdd {
         this.reportList = reportList;
     }
 
-    public void executeProcess(String goodsName, String goodsSize, int intGoodsPrice, String goodsItem) throws InterruptedException {
+    public void executeProcess(StructureCSV goods) throws InterruptedException {
+
+        String goodsName = goods.getName();
+        String goodsSize = goods.getArtucul();
+        int intGoodsPrice = goods.getPrice();
+        int goodsItem = goods.getItem();
 
         AddGoods addGoods = new AddGoods(wait);
         SearchGoods searchGoods = new SearchGoods(wait);
-
 
         new ClowdWindow(driver);
 
