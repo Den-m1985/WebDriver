@@ -1,4 +1,4 @@
-package org.example.csvRead;
+package org.example.csvRead.csv;
 
 public class StructureCSV {
     private String name;
