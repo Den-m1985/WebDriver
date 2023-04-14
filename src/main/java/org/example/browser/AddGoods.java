@@ -14,7 +14,7 @@ public class AddGoods {
     }
 
 
-    public void addGoods(String item,  WebDriver driver) throws InterruptedException {
+    public void addGoods(int item,  WebDriver driver) throws InterruptedException {
 
         XPathWait xPathWait = new XPathWait(wait);
 
@@ -25,7 +25,8 @@ public class AddGoods {
         new ClowdWindow(driver);
 
         search.clear();
-        search.sendKeys(item);
+        String strItem = String.valueOf(item);
+        search.sendKeys(strItem);
 
         new ClowdWindow(driver);
 
