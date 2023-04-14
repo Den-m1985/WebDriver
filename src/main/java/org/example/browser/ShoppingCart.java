@@ -1,5 +1,6 @@
-package org.example;
+package org.example.browser;
 
+import org.example.TextLinks;
 import org.example.browser.XPathWait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
