@@ -31,7 +31,7 @@ public class Command {
         int cellName = 0;   // Cell with name or articular
         int cellPrice = 2;
         int cellItem = 3;   // Cell with item to order
-        CsvFilter csvFilter = new CsvFilter(pathCSV, reportList);
+        CsvFilter csvFilter = new CsvFilter(pathCSV);
         List<String[]> data = csvFilter.csvFilter(cellName, cellPrice, cellItem);
 
 
