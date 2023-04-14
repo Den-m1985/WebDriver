@@ -4,6 +4,7 @@ import com.opencsv.exceptions.CsvException;
 import org.example.browser.*;
 import org.example.browser.chrome.OpenChrome;
 import org.example.csvRead.CsvFilter;
+import org.example.csvRead.csv.StructureCSV;
 import org.example.oldExel.WrightOldExelArticul;
 import org.example.searchAndAdd.SearchAndAdd;
 import org.openqa.selenium.By;
@@ -28,11 +29,11 @@ public class Command {
         reportList = new ArrayList<>();
 
         // Read csv
-        int cellName = 0;   // Cell with name or articular
+        //int cellName = 0;   // Cell with name or articular
         int cellPrice = 2;
         int cellItem = 3;   // Cell with item to order
         CsvFilter csvFilter = new CsvFilter(pathCSV);
-        List<String[]> data = csvFilter.csvFilter(cellName, cellPrice, cellItem);
+        List<StructureCSV> data = csvFilter.csvFilter(cellPrice, cellItem);
 
 
         // Open browser
@@ -58,15 +59,11 @@ public class Command {
         }
 
 
-        for (String[] goods : data) {
-            String goodsName = goods[0];
-            String goodsSize = goods[1];
-            int intGoodsPrice = Integer.parseInt(goods[2]);
-            String goodsItem = goods[3];
-
+        for (StructureCSV goods : data) {
+            String goodsName = goods.getName();
             try {
                 SearchAndAdd searchAndAdd = new SearchAndAdd(driver, wait, reportList);
-                searchAndAdd.executeProcess(goodsName, goodsSize, intGoodsPrice, goodsItem);
+                searchAndAdd.executeProcess(goods);
             } catch (Exception e) {
                 System.out.println("Произошла ошибка: " + e.getMessage());
                 String[] noAdd = {goodsName, "Какая-то общая ошибка"};
