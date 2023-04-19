@@ -1,69 +1,82 @@
 package org.example.window;
 
+import org.example.window.helper_classes.ButtonStart;
+import org.example.window.helper_classes.MyMenuBar;
+import org.example.window.helper_classes.OutputStreamEncoding;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
+import static java.awt.Color.lightGray;
+
 public class Window extends JFrame {
 
     public Window() throws UnsupportedEncodingException {
-        super("Програмка для Оли");
+        setTitle("     Alfa-812");
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /**
-         * The text area which is used for displaying logging information.
-         */
-        JTextArea textArea = new JTextArea(50, 10);   // число строк и кол-во их
-        textArea.setEditable(false);
+
+        StringBuilder str = new StringBuilder();  // записываем в буфер то, что попало на поле из PrintStream.
+        setJMenuBar(new MyMenuBar().menuBar(str));  // создаем меню
+
+        JTextArea textArea = new JTextArea();  // объявляем текстовое поле
+        textArea.setBackground(new Color(220, 220, 220));  // цвет фона
 
         //Печатает текст в окно
         String STDOUT_ENCODING = "windows-1251";
         PrintStream printStream = new PrintStream(new OutputStreamEncoding(textArea, STDOUT_ENCODING),
                 true, STDOUT_ENCODING);
-
-
         // re-assigns standard output stream and error output stream
         System.setOut(printStream);  // вывод текста на экран с кнопки старт
         System.setErr(printStream); // вывод текста ошибок на экран с кнопки старт
 
+
+
+//
+//        try {
+//            // Создаем объект FileOutputStream для файла output.txt
+//            FileOutputStream outputStream = new FileOutputStream("output.txt", true); // второй аргумент - true - показывает, что нужно добавить данные в конец файла, а не перезаписать
+//            // Создаем новый PrintStream, который будет отправлять данные в файл
+//            PrintStream filePrintStream = new PrintStream(outputStream);
+//
+//            // Используем этот PrintStream для вывода на консоль и записи данных в файл
+//            System.setOut(filePrintStream);
+//            System.out.println("Эта строка будет выведена и записана в файл output.txt");
+//
+//            // Закрываем объект FileOutputStream
+//            outputStream.close();
+
+
+
+
         // creates the GUI
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0;
+
+        constraints.gridx = 1;  // по центру
         constraints.gridy = 0;
-
-        //Делает рамку вокруг
-        constraints.insets = new Insets(10, 10, 10, 10);
-        //Делает кнопки рядом
-        //constraints.anchor = GridBagConstraints.WEST;
-
-        // Добавляем кнопку
-        JButton buttonStart = new JButton("Жмякай");
-        add(buttonStart, constraints);
-
-        // если его нет, то кнопки одна на одной
-        //constraints.gridx = 1;
-        //add(buttonClear, constraints);
+        constraints.fill = 1;  // заполняет пространство рядом с кнопкой.
+        add(new ButtonStart().buttonStart(), constraints);  // добавляем пнопку start
 
         // окно для текста по центру
         constraints.gridx = 0;
-        constraints.gridy = 1;  // кнпки поверх текстового окна.
+        constraints.gridy = 1;  // координата по "у" окна.
         constraints.gridwidth = 2;  // разметка текстового окна
         constraints.fill = GridBagConstraints.BOTH;  //текстовое окно
         constraints.weightx = 1.0;  // разметка текстового окна
         constraints.weighty = 1.0;  // разметка текстового окна
-
         add(new JScrollPane(textArea), constraints);  // Добавляет текстовое поле.
+        //Делает рамку вокруг
+        constraints.insets = new Insets(10, 10, 10, 10);
 
         System.out.println("Нажимай кнопку. Откроется окно, по умолчанию Рабочий стол.");
         System.out.println("У тебя 2 попытки для открытия файла csv.");
         System.out.println();
 
-        buttonStart.addActionListener(new StartCommand());
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(480, 500);
-        setLocationRelativeTo(null);    // centers on screen
     }
 
 }

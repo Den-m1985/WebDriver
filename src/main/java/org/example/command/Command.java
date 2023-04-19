@@ -1,4 +1,4 @@
-package org.example;
+package org.example.command;
 
 import com.opencsv.exceptions.CsvException;
 import org.example.browser.*;

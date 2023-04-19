@@ -1,6 +1,7 @@
 package org.example;
 
 import com.opencsv.exceptions.CsvException;
+import org.example.command.Command;
 import org.example.createPathFile.GetPathFile;
 
 import java.io.IOException;

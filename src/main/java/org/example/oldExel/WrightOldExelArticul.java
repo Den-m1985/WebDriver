@@ -3,8 +3,9 @@ package org.example.oldExel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.example.TextLinks;
 import org.example.createPathFile.CreatePathFile;
+import org.example.oldExel.createWrite.CreateOldExel;
+import org.example.oldExel.createWrite.WriteOldExel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WrightOldExelArticul {
@@ -20,7 +21,7 @@ public class WrightOldExelArticul {
 
         //write no find article, xls file in downloads
         TextLinks fileName = TextLinks.FILENAMESAVE;
-        String downloadsPath = createPathFile.createPathFile(fileName.getString());
+        String downloadsPath = createPathFile.createPathFile(fileName.getString(), "xls");
 
         WriteOldExel writeOldExel2 = new WriteOldExel(workbook2, downloadsPath);
         writeOldExel2.writeCellExel();

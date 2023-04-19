@@ -1,4 +1,4 @@
-package org.example.window;
+package org.example.window.helper_classes;
 
 import javax.swing.*;
 import java.io.ByteArrayOutputStream;

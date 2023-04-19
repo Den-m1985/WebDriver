@@ -1,8 +1,8 @@
-package org.example.window;
+package org.example.window.helper_classes;
 
-import org.example.Command;
 import com.opencsv.exceptions.CsvException;
 import org.example.TextLinks;
+import org.example.command.Command;
 import org.example.createPathFile.GetPathFile;
 
 import javax.swing.*;

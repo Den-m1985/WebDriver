@@ -10,7 +10,7 @@ public class CreatePathFile {
     }
 
 
-    public String  createPathFile (String fileName){
+    public String  createPathFile (String fileName, String extension){
 
         Date date = new Date();
         String str = date.currentDate();
@@ -19,7 +19,7 @@ public class CreatePathFile {
         String defaultFolder = textLinks.getString();
 
         return System.getProperty("user.home") + File.separator +
-                defaultFolder+"\\" + fileName + "_" + str + ".xls";
+                defaultFolder+"\\" + fileName + "_" + str + "." + extension;
     }
 
 
