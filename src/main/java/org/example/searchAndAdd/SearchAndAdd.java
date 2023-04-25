@@ -57,6 +57,16 @@ public class SearchAndAdd {
             // если надо выбрать размер
             if (size.get(0).getText().length() > 0) {
 
+//                for (WebElement x:size) {
+//                    System.out.println("goodsName-----" + goodsName);
+//                    System.out.println("getSize().height-----" + x.getSize().height);
+//                    System.out.println("getSize().width-----" + x.getSize().width);
+//                    System.out.println("getText()-----" + x.getText());
+//                    System.out.println("getText().length()-----" + x.getText().length());
+//                    System.out.println("getTagName()-----" + x.getTagName());
+//                }
+//                System.out.println();
+
                 CommandSelectSize selectSize = new CommandSelectSize(driver, addGoods);
                 selectSize.commandSelectSize(goodsName, goodsSize, intGoodsPrice, goodsItem);
                 new ClowdWindow(driver);
