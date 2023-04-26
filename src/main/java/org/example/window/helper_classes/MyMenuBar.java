@@ -17,23 +17,23 @@ public class MyMenuBar {
         // Создание выпадающего меню
         JMenu file = new JMenu("Дополнительно");
 
-        JMenuItem save = new JMenuItem();
-        save.setIcon(new ImageIcon("src\\main\\java\\org\\example\\window\\images\\save40.png"));
-        JMenuItem info = new JMenuItem();
-        info.setIcon(new ImageIcon("src\\main\\java\\org\\example\\window\\images\\info40.png"));
+        //JMenuItem save = new JMenuItem("Сохранить");
+        //save.setIcon(new ImageIcon("src\\main\\java\\resources\\save40.png"));
+        JMenuItem info = new JMenuItem("info");
+        info.setIcon(new ImageIcon("src\\main\\java\\resources\\info40.png"));
 
         // Добавим в меню
-        file.add(save);
-        save.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                new WriteTXT(data);
-                //System.out.println("This is save.\n");
-            }
-        });
+//        file.add(save);
+//        save.addActionListener(new ActionListener()
+//        {
+//            @Override
+//            public void actionPerformed(ActionEvent arg0) {
+//                new WriteTXT(data);
+//                //System.out.println("This is save.\n");
+//            }
+//        });
 
-        file.addSeparator();
+        //file.addSeparator();
         file.add(info);
         info.addActionListener(new ActionListener()
         {

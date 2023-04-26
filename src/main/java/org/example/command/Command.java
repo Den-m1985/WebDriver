@@ -73,8 +73,9 @@ public class Command {
 
         // по завершению заходим в корзину
         new ClowdWindow(driver);
-        ShoppingCart shoppingCart2 = new ShoppingCart(wait);
+        ShoppingCart shoppingCart2 = new ShoppingCart(wait, driver);
         shoppingCart2.clickCart();
+        shoppingCart2.countGoodsInCart();
         //driver.close();  //закрываем браузер по завершению
 
         new WrightOldExelArticul(reportList);

@@ -6,11 +6,24 @@ import org.example.createPathFile.CreatePathFile;
 import org.example.oldExel.createWrite.CreateOldExel;
 import org.example.oldExel.createWrite.WriteOldExel;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class WrightOldExelArticul {
     public WrightOldExelArticul( List<String[]> list) {
 
+//        list.stream().sorted(new Comparator<String[]>() {
+//            @Override
+//            public int compare(String[] o1, String[] o2) {
+//                return 0;
+//            }
+//        });
+        list.sort(new Comparator<String[]>() {
+            @Override
+            public int compare(String[] o1, String[] o2) {
+                return o1[1].compareTo(o2[1]);
+            }
+        });
 
         //create no find article
         CreateOldExel createOldExel = new CreateOldExel();
