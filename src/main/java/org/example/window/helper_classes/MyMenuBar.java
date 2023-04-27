@@ -5,6 +5,7 @@ import org.example.txt.WriteTXT;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class MyMenuBar {
 
@@ -19,8 +20,9 @@ public class MyMenuBar {
 
         //JMenuItem save = new JMenuItem("Сохранить");
         //save.setIcon(new ImageIcon("src\\main\\java\\resources\\save40.png"));
-        JMenuItem info = new JMenuItem("info");
-        info.setIcon(new ImageIcon("src\\main\\java\\resources\\info40.png"));
+        JMenuItem info = new JMenuItem();
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/info40.png")));
+        info.setIcon(icon);
 
         // Добавим в меню
 //        file.add(save);
@@ -35,13 +37,7 @@ public class MyMenuBar {
 
         //file.addSeparator();
         file.add(info);
-        info.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                new Info();
-            }
-        });
+        info.addActionListener(arg0 -> new Info());
 
         menuBar.add(file);
         return menuBar;
