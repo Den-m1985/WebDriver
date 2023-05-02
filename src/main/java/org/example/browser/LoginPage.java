@@ -1,6 +1,7 @@
 package org.example.browser;
 
 import org.example.TextLinks;
+import org.example.authentication.LoginStorage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,16 +11,17 @@ public class LoginPage {
     private final WebDriverWait wait;
 
 
-    public LoginPage(WebDriverWait wait) {
+    public LoginPage(WebDriverWait wait) throws Exception {
         this.wait = wait;
 
         signAccount();
     }
 
 
-    void signAccount() {
+    void signAccount() throws Exception {
 
         XPathWait pathWait = new XPathWait(wait);
+        LoginStorage loginStorage = new LoginStorage();
 
         // field Cabinet
         TextLinks LinksCabinet = TextLinks.CABINET;
@@ -30,15 +32,18 @@ public class LoginPage {
         TextLinks LinksLogin = TextLinks.LOGINFIELD;
         WebElement loginField = pathWait.xPath(LinksLogin.getString());
         loginField.click();
-        //loginField.sendKeys(ConfProperties.getProperty("login"));
-        loginField.sendKeys("");
+
+        String[] decryptedData = loginStorage.readFromFile();
+        loginField.sendKeys(decryptedData[0]); // enter login
+        decryptedData[0] = "";
 
         // field Password
         TextLinks LinksPassword = TextLinks.PASSWORDFIELD;
         WebElement passwordField = pathWait.xPath(LinksPassword.getString());
         passwordField.click();
-        //passwordField.sendKeys(ConfProperties.getProperty("password"));
-        passwordField.sendKeys("");
+
+        passwordField.sendKeys(decryptedData[1]);  // enter password
+        decryptedData[1] = "";
         /*
         Добавить замену пароля, чтоб не чисел в буфере.
          */
