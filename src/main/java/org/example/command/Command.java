@@ -22,7 +22,7 @@ public class Command {
     public Command() {
     }
 
-    public void startProgram(String pathCSV) throws IOException, CsvException, InterruptedException {
+    public void startProgram(String pathCSV) throws Exception {
 
         long start = System.nanoTime();
 
