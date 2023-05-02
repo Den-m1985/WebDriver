@@ -20,6 +20,7 @@ public enum TextLinks {
     SHEET("Sheet1"),  // имя страницы в отчете
     NOARTICUL("Проверить эти товары"),
     FILENAMESAVE("Alfa-812_Report"),  //имя файла с ненайденными артикулами
+    AUTHORIZATION("Documents\\AuthorizationAlfa.txt"), //имя файла для хранения логина и пароля
     TEXTSAVEFILE("Файл куда сохраняем ненайденные артикулы"),
     TEXTFILEOPEN("Файл исходник:"),
     CSV("csv");
