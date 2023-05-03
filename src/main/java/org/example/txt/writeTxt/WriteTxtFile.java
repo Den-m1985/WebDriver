@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class WriteTxtFile {
 
-    public WriteTxtFile(String downloadsPath, String time, StringBuilder data) {
+    public WriteTxtFile(String downloadsPath, String time, String data) {
 
         try {
             FileWriter fileWriter = new FileWriter(downloadsPath, true);

@@ -8,7 +8,7 @@ import org.example.txt.writeTxt.WriteTxtFile;
 
 public class WriteTXT {
 
-    public WriteTXT(StringBuilder data) {
+    public WriteTXT(String data) {
 
         // создаем имя файла
         CreatePathFile createPathFile = new CreatePathFile();

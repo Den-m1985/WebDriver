@@ -9,7 +9,6 @@ import java.awt.*;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
-import static java.awt.Color.lightGray;
 
 public class Window extends JFrame {
 
@@ -18,10 +17,6 @@ public class Window extends JFrame {
         setSize(500, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-        StringBuilder str = new StringBuilder();  // записываем в буфер то, что попало на поле из PrintStream.
-        setJMenuBar(new MyMenuBar().menuBar(str));  // создаем меню
 
         JTextArea textArea = new JTextArea();  // объявляем текстовое поле
         textArea.setBackground(new Color(220, 220, 220));  // цвет фона
@@ -33,7 +28,8 @@ public class Window extends JFrame {
         // re-assigns standard output stream and error output stream
         System.setOut(printStream);  // вывод текста на экран с кнопки старт
         System.setErr(printStream); // вывод текста ошибок на экран с кнопки старт
-        
+
+        setJMenuBar(new MyMenuBar().menuBar(textArea));  // создаем меню
 
         // creates the GUI
         setLayout(new GridBagLayout());
