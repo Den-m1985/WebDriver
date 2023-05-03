@@ -54,7 +54,6 @@ public class Window extends JFrame {
         System.out.println("Нажимай кнопку. Откроется окно, по умолчанию Рабочий стол.");
         System.out.println("У тебя 2 попытки для открытия файла csv.");
         System.out.println();
-
     }
 
 }
