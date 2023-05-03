@@ -17,15 +17,9 @@ public class OnlyGoods {
                 dataWithItem.add(new StructureCSV(row[0], row[1], price, item));
             }
         }
-
-
-//        List<String[]> dataWithItem = new ArrayList<>();
-//        for (String[] row : rows) {
-//            if (isInteger(row[cellItem]) && isInteger(row[cellPrice]))
-//                dataWithItem.add(row);
-//        }
         return dataWithItem;
     }
+
 
     static boolean isInteger(String str) {
         try {
