@@ -39,7 +39,7 @@ public class StartCommand implements ActionListener {
         try {
             command.startProgram(pathCSV);
 
-        } catch (IOException | CsvException | InterruptedException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
         JOptionPane.showMessageDialog(null,"Успешно");

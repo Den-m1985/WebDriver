@@ -45,28 +45,20 @@ public class SearchAndAdd {
 
         // проверяем на ниличие выбора размера
         List<WebElement> size = driver.findElements(By.className("b1c_option"));
-
+        //System.out.println("goodsName---" + goodsName);
         // если товара в поисковике более 1шт
         if (products.size() > 0) {
+            //System.out.println("Если товара более 1--" + product.size());
+            // работаем с несколькими товарами
+            new ManyGoods(products, driver, goodsName);
             String[] noFind = {goodsName, "товаров более 1шт."};
             reportList.add(noFind);
 
             // если товар есть
         } else if (product.size() > 0) {
-
+            //System.out.println("Если товара есть--" + product.size());
             // если надо выбрать размер
             if (size.get(0).getText().length() > 0) {
-
-//                for (WebElement x:size) {
-//                    System.out.println("goodsName-----" + goodsName);
-//                    System.out.println("getSize().height-----" + x.getSize().height);
-//                    System.out.println("getSize().width-----" + x.getSize().width);
-//                    System.out.println("getText()-----" + x.getText());
-//                    System.out.println("getText().length()-----" + x.getText().length());
-//                    System.out.println("getTagName()-----" + x.getTagName());
-//                }
-//                System.out.println();
-
                 CommandSelectSize selectSize = new CommandSelectSize(driver, addGoods);
                 selectSize.commandSelectSize(goodsName, goodsSize, intGoodsPrice, goodsItem);
                 new ClowdWindow(driver);

@@ -33,7 +33,7 @@ public class Test {
         try {
             command.startProgram(pathCSV);
 
-        } catch (IOException | CsvException | InterruptedException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 

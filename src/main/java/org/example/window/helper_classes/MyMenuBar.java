@@ -24,6 +24,10 @@ public class MyMenuBar {
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/info40.png")));
         info.setIcon(icon);
 
+        JMenuItem login = new JMenuItem();
+        ImageIcon iconLogin = new ImageIcon(Objects.requireNonNull(getClass().getResource("/enter40.png")));
+        login.setIcon(iconLogin);
+
         // Добавим в меню
 //        file.add(save);
 //        save.addActionListener(new ActionListener()
@@ -37,7 +41,18 @@ public class MyMenuBar {
 
         //file.addSeparator();
         file.add(info);
+        file.addSeparator();
+        file.add(login);
+
         info.addActionListener(arg0 -> new Info());
+        login.addActionListener(arg0 -> {
+            try {
+                new Authorization();
+                System.out.println("Авторизация прошла успешно");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         menuBar.add(file);
         return menuBar;

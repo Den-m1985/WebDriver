@@ -33,25 +33,7 @@ public class Window extends JFrame {
         // re-assigns standard output stream and error output stream
         System.setOut(printStream);  // вывод текста на экран с кнопки старт
         System.setErr(printStream); // вывод текста ошибок на экран с кнопки старт
-
-
-
-//
-//        try {
-//            // Создаем объект FileOutputStream для файла output.txt
-//            FileOutputStream outputStream = new FileOutputStream("output.txt", true); // второй аргумент - true - показывает, что нужно добавить данные в конец файла, а не перезаписать
-//            // Создаем новый PrintStream, который будет отправлять данные в файл
-//            PrintStream filePrintStream = new PrintStream(outputStream);
-//
-//            // Используем этот PrintStream для вывода на консоль и записи данных в файл
-//            System.setOut(filePrintStream);
-//            System.out.println("Эта строка будет выведена и записана в файл output.txt");
-//
-//            // Закрываем объект FileOutputStream
-//            outputStream.close();
-
-
-
+        
 
         // creates the GUI
         setLayout(new GridBagLayout());

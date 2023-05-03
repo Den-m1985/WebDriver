@@ -40,6 +40,7 @@ public class AnalyzeText {
             return webSiteSize;
         }
 
+        // здесь можно переделать: поднять/опустить регист во всех словах, вернуть оригинал.
         // если последний символ с сайта СП39 в нижнем регистре, то меняем его на верхний и проверяем с текстом с сайта.
         String[] dividedStr = splitString.getSizes(webSiteSize);  // делим строку с сайта
         partsGoods[fromSpSize - 1] = partsGoods[fromSpSize - 1].toUpperCase();  // меняем регистр последнего индекса
@@ -95,4 +96,12 @@ public class AnalyzeText {
 
      */
 
+    public String splitNameArticuleSize(String goodsSize, String textFromProduct){
+        String result = "";
+        SplitString splitString = new SplitString();
+        String[] splitName = splitString.getSizes(textFromProduct);  // делим строку с сайта
+        result = splitName[0];
+
+        return result;
+    }
 }
