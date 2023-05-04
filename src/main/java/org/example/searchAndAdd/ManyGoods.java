@@ -20,10 +20,10 @@ public class ManyGoods {
 
             String textFromProduct = y.getText();
             String res = new AnalyzeText().splitNameArticuleSize(goodsName, textFromProduct);  // работает
-            System.out.println("y.getText()-----" + res);
-            System.out.println("textFromProduct---" + textFromProduct);
+            //System.out.println("y.getText()-----" + res);
+            //System.out.println("textFromProduct---" + textFromProduct);
             if (res.equals(goodsName)){
-                System.out.println("good");
+                //System.out.println("good");
 
                 String lin = "title=";
                 y.findElement(By.className(lin)).click();
