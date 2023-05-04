@@ -9,11 +9,13 @@ import java.util.List;
 
 public class CsvFilter {
     private final String fileName;
+    private List<String[]> error;
 
 
     public CsvFilter(String fileName) {
         this.fileName = fileName;
     }
+
 
     public List<StructureCSV> csvFilter(int cellPrice, int cellItem) throws IOException, CsvException {
 
@@ -21,7 +23,9 @@ public class CsvFilter {
         List<String[]> rows = csvRead.readCSV();
 
         // В этом блоке оставляем только те колонки где есть цена и кол-во
-        List<StructureCSV> dataWithItem = new OnlyGoods().onlyGoods(rows, cellPrice, cellItem);
+        OnlyGoods onlyGoods = new OnlyGoods();
+        List<StructureCSV> dataWithItem = onlyGoods.onlyGoods(rows, cellPrice,cellItem);
+        error = onlyGoods.reportCSV();
 
         // этот блок возвращает иникальные элементы
         UniqueGoods uniqueGoods = new UniqueGoods();
@@ -36,15 +40,11 @@ public class CsvFilter {
         System.out.println();
         System.out.println(textLinks.getString() + uniqueValues.size());
 
-//        for (StructureCSV x:duplicateNames) {
-//            System.out.println(x.getName() + "----" + x.getArtucul() + "----" + x.getItem());
-//        }
-//        System.out.println();
-//        for (StructureCSV x:resolveDuplicatedNames) {
-//            System.out.println(x.getName() + "----" + x.getArtucul() + "----" + x.getItem());
-//        }
         return uniqueValues;
     }
 
 
+    public List<String[]> getError() {
+        return error;
+    }
 }

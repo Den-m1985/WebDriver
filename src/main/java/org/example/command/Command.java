@@ -29,12 +29,11 @@ public class Command {
         reportList = new ArrayList<>();
 
         // Read csv
-        //int cellName = 0;   // Cell with name or articular
-        int cellPrice = 2;
+        int cellPrice = 2;  // Cell with price to order
         int cellItem = 3;   // Cell with item to order
         CsvFilter csvFilter = new CsvFilter(pathCSV);
         List<StructureCSV> data = csvFilter.csvFilter(cellPrice, cellItem);
-
+        reportList.addAll(csvFilter.getError());
 
         // Open browser
         OpenChrome openChrome = new OpenChrome();
