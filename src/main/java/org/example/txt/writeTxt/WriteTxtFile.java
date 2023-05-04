@@ -12,7 +12,7 @@ public class WriteTxtFile {
             FileWriter fileWriter = new FileWriter(downloadsPath, true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.println("");
-            printWriter.println(data.length());
+            //printWriter.println(data.length());
             printWriter.println("*******************" + time + "*************************");
             printWriter.println(data); // записываем данные в файл с новой строки
             printWriter.close(); // закрываем PrintWriter
