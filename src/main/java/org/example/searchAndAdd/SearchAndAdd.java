@@ -50,7 +50,7 @@ public class SearchAndAdd {
         if (products.size() > 0) {
             //System.out.println("Если товара более 1--" + product.size());
             // работаем с несколькими товарами
-            new ManyGoods(products, driver, goodsName);
+            new ManyGoods(products, driver, wait, goodsName);
             String[] noFind = {goodsName, "товаров более 1шт."};
             reportList.add(noFind);
 
