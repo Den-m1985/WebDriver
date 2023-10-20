@@ -14,12 +14,16 @@ public class Window extends JFrame {
 
     public Window() throws UnsupportedEncodingException {
         setTitle("     Alfa-812");
-        setSize(500, 500);
+        setSize(600, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        centerScreen();  // set in the center of the screen
 
         JTextArea textArea = new JTextArea();  // объявляем текстовое поле
         textArea.setBackground(new Color(220, 220, 220));  // цвет фона
+
+        textArea.setLineWrap(true); // переносит текст если поле заполнено
+        textArea.setEditable(false);  // неизменяемый текст
 
         //Печатает текст в окно
         String STDOUT_ENCODING = "windows-1251";
@@ -54,6 +58,16 @@ public class Window extends JFrame {
         System.out.println("Нажимай кнопку. Откроется окно, по умолчанию Рабочий стол.");
         System.out.println("У тебя 2 попытки для открытия файла csv.");
         System.out.println();
+    }
+
+    private void centerScreen() {
+        // get screen size width and height
+        int screenWidth = getToolkit().getScreenSize().width;
+        int screenHeight = getToolkit().getScreenSize().height;
+        // find coordinate window to set
+        int x = (int)((screenWidth - getWidth())/1.1);
+        int y = (screenHeight - getHeight()) / 2;
+        setLocation(x, y);
     }
 
 }
