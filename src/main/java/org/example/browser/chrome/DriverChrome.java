@@ -10,12 +10,12 @@ import java.io.File;
 public class DriverChrome {
 
     public WebDriver DriverChrome() {
-        String chromedriver = System.getProperty("user.home") + File.separator +
-                "chromedriver_win32"+"\\" + "chromedriver.exe";
+        //String chromedriver = System.getProperty("user.home") + File.separator +
+          //      "chromedriver_win32"+"\\" + "chromedriver.exe";
 
         // установливаем зависимость, определяющую путь к chromedriver
         ChromeOptions options = new ChromeOptions();
-        System.setProperty("webdriver.chrome.driver", chromedriver);
+        //System.setProperty("webdriver.chrome.driver", chromedriver);
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-notifications");
 
