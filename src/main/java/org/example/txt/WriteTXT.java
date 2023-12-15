@@ -5,7 +5,6 @@ import org.example.createPathFile.CreatePathFile;
 import org.example.createPathFile.Date;
 import org.example.txt.writeTxt.WriteTxtFile;
 
-
 public class WriteTXT {
 
     public WriteTXT(String data) {
@@ -20,4 +19,5 @@ public class WriteTXT {
 
         new WriteTxtFile(downloadsPath, time, data);
     }
+
 }

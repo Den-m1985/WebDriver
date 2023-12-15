@@ -8,7 +8,7 @@ import java.util.Objects;
 public class MyMenuBar {
 
 
-    public JMenuBar menuBar (JTextArea data){
+    public JMenuBar menuBar(JTextArea data) {
         JMenuBar menuBar = new JMenuBar();
 
         // Создание выпадающего меню
@@ -32,7 +32,7 @@ public class MyMenuBar {
         file.addSeparator();
         file.add(login);
 
-        save.addActionListener(arg0 ->  new WriteTXT(data.getText()));
+        save.addActionListener(arg0 -> new WriteTXT(data.getText()));
         info.addActionListener(arg0 -> new Info());
         login.addActionListener(arg0 -> {
             try {

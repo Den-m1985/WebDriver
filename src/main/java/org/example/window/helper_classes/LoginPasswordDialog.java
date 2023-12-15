@@ -4,10 +4,8 @@ import javax.swing.*;
 import java.util.Objects;
 
 public class LoginPasswordDialog {
-    public LoginPasswordDialog() {
-    }
 
-    public String[] enterLoginPassword(){
+    public String[] enterLoginPassword() {
 
         JTextField loginField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
@@ -32,4 +30,5 @@ public class LoginPasswordDialog {
         }
         return null;
     }
+
 }

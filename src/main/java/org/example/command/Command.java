@@ -1,29 +1,18 @@
 package org.example.command;
 
-import com.opencsv.exceptions.CsvException;
 import org.example.browser.*;
-import org.example.browser.chrome.OpenChrome;
 import org.example.csvRead.CsvFilter;
 import org.example.csvRead.csv.StructureCSV;
 import org.example.oldExel.WrightOldExelArticul;
 import org.example.searchAndAdd.SearchAndAdd;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Command {
     private List<String[]> reportList;
 
-    public Command() {
-    }
-
-    public void startProgram(String pathCSV) throws Exception {
-
+    public Command(String pathCSV) throws Exception {
         long start = System.nanoTime();
 
         reportList = new ArrayList<>();
@@ -35,33 +24,20 @@ public class Command {
         List<StructureCSV> data = csvFilter.csvFilter(cellPrice, cellItem);
         reportList.addAll(csvFilter.getError());
 
-        // Open browser
-        OpenChrome openChrome = new OpenChrome();
-        WebDriver driver = openChrome.getDriver();
-        WebDriverWait wait = openChrome.getWait();
-
         // Open website
-        new OpenWebSite(driver);
+        new OpenWebSite();
 
-        new ClowdWindow(driver);
+        new ClowdWindow();
 
         // login account
-        new LoginPage(wait);
+        new LoginPage();
 
-        new ClowdWindow(driver);
-
-        // delete shoping cart  TO DO
-        List<WebElement> goodsInCart = driver.findElements(By.className("cart"));
-        //ShoppingCart shoppingCart = new ShoppingCart(wait);
-        for (WebElement x : goodsInCart) {
-            System.out.println(x.getText());
-        }
-
+        new ClowdWindow();
 
         for (StructureCSV goods : data) {
             String goodsName = goods.getName();
             try {
-                SearchAndAdd searchAndAdd = new SearchAndAdd(driver, wait, reportList);
+                SearchAndAdd searchAndAdd = new SearchAndAdd(reportList);
                 searchAndAdd.executeProcess(goods);
             } catch (Exception e) {
                 System.out.println("Произошла ошибка: " + e.getMessage());
@@ -71,11 +47,15 @@ public class Command {
         }
 
         // по завершению заходим в корзину
-        new ClowdWindow(driver);
-        ShoppingCart shoppingCart2 = new ShoppingCart(wait, driver);
+        new ClowdWindow();
+        ShoppingCart shoppingCart2 = new ShoppingCart();
         shoppingCart2.clickCart();
         shoppingCart2.countGoodsInCart();
-        //driver.close();  //закрываем браузер по завершению
+
+        /*
+        При закрытии браузера список покупок не сохраняется.
+        driver.close();
+         */
 
         new WrightOldExelArticul(reportList);
 
@@ -92,6 +72,5 @@ public class Command {
         System.out.println("_________Попей чайку_________");
         System.out.println();
     }
-
 
 }

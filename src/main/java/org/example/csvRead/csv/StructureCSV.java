@@ -1,9 +1,9 @@
 package org.example.csvRead.csv;
 
 public class StructureCSV {
-    private String name;
-    private String artucul;
-    private int price;
+    private final String name;
+    private final String artucul;
+    private final int price;
     private int item;
 
     public StructureCSV(String name, String artucul, int price, int item) {

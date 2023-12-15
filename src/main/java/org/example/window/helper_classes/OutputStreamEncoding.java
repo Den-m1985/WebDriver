@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class OutputStreamEncoding extends OutputStream{
+public class OutputStreamEncoding extends OutputStream {
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
     private final JTextArea textArea;
     private final String STDOUT_ENCODING;
@@ -16,7 +16,7 @@ public class OutputStreamEncoding extends OutputStream{
     }
 
     @Override
-    public void write(int b) throws IOException {
+    public void write(int b) {
         baos.write(b);
     }
 

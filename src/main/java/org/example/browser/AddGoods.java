@@ -1,47 +1,43 @@
 package org.example.browser;
 
 import org.example.TextLinks;
-import org.openqa.selenium.WebDriver;
+import org.example.browser.chrome.XPathWait;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AddGoods {
-    private final WebDriverWait wait;
 
 
-    public AddGoods(WebDriverWait wait) {
-        this.wait = wait;
-    }
+    public AddGoods(int item) throws InterruptedException {
+        XPathWait pathWait = new XPathWait();
 
-
-    public void addGoods(int item,  WebDriver driver) throws InterruptedException {
-
-        XPathWait xPathWait = new XPathWait(wait);
+        WebElement search;
 
         TextLinks linkAddItem = TextLinks.ADDITEM;
-        WebElement search = xPathWait.xPath(linkAddItem.getString());
+        //search = pathWait.xPath(linkAddItem.getString());
+        search = pathWait.xPathVisibility(linkAddItem.getString());
         search.click();
 
-        new ClowdWindow(driver);
+
+
+        new ClowdWindow();
 
         search.clear();
         String strItem = String.valueOf(item);
         search.sendKeys(strItem);
 
-        new ClowdWindow(driver);
+        new ClowdWindow();
 
         TextLinks linkClickBay = TextLinks.CLICKBAY;
-        WebElement buttonSearch = xPathWait.xPath(linkClickBay.getString());
+        WebElement buttonSearch = pathWait.xPath(linkClickBay.getString());
         buttonSearch.click();
 
-        new ClowdWindow(driver);
+        new ClowdWindow();
 
         TextLinks linkCloseWindow = TextLinks.CLOSEWINDOW;
-        WebElement buttonClose = xPathWait.xPath(linkCloseWindow.getString());
+        WebElement buttonClose = pathWait.xPath(linkCloseWindow.getString());
         buttonClose.click();
 
-        new ClowdWindow(driver);
-
+        new ClowdWindow();
     }
 
 }

@@ -1,26 +1,23 @@
 package org.example.csvRead;
 
-import com.opencsv.exceptions.CsvException;
 import org.example.TextLinks;
 import org.example.csvRead.csv.*;
 
-import java.io.IOException;
 import java.util.List;
+
 
 public class CsvFilter {
     private final String fileName;
     private List<String[]> error;
-
 
     public CsvFilter(String fileName) {
         this.fileName = fileName;
     }
 
 
-    public List<StructureCSV> csvFilter(int cellPrice, int cellItem) throws IOException, CsvException {
+    public List<StructureCSV> csvFilter(int cellPrice, int cellItem) {
 
-        CsvRead csvRead = new CsvRead(fileName);
-        List<String[]> rows = csvRead.readCSV();
+        List<String[]> rows = new CsvRead().readCSV2(fileName, "windows-1251");
 
         // В этом блоке оставляем только те колонки где есть цена и кол-во
         OnlyGoods onlyGoods = new OnlyGoods();
@@ -36,9 +33,9 @@ public class CsvFilter {
         List<StructureCSV> resolveDuplicatedNames = new DuplicateGoods().duplicateGoods(duplicateNames);
         uniqueValues.addAll(resolveDuplicatedNames);
 
-        TextLinks textLinks = TextLinks.COUNROWSCSV;
+        String textLinks = TextLinks.COUNROWSCSV.getString();
+        System.out.println(textLinks + uniqueValues.size());
         System.out.println();
-        System.out.println(textLinks.getString() + uniqueValues.size());
 
         return uniqueValues;
     }
@@ -47,4 +44,5 @@ public class CsvFilter {
     public List<String[]> getError() {
         return error;
     }
+
 }

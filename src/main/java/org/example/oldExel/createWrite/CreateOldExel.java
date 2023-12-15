@@ -5,15 +5,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.example.TextLinks;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreateOldExel {
-
-
-    public CreateOldExel() {
-    }
-
 
     public HSSFWorkbook createOldExel(List<String[]> list) {
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -27,12 +21,11 @@ public class CreateOldExel {
         row.createCell(0).setCellValue(noFindArticul.getString());
 
         for (int i = 0; i < list.size(); i++) {
-            Row row2 = sheet.createRow(i+2);
+            Row row2 = sheet.createRow(i + 2);
             row2.createCell(0).setCellValue(list.get(i)[0]);
             row2.createCell(2).setCellValue(list.get(i)[1]);
         }
         return workbook;
     }
-
 
 }

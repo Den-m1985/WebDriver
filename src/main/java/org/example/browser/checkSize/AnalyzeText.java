@@ -7,11 +7,6 @@ public class AnalyzeText {
         String valueStr = "";
         String temp = "";
 
-//        boolean textContain = webSiteSize.contains(goodsSize);
-//        if (textContain) {
-//            System.out.println("1-й");
-//            return goodsSize;
-//        }
         if (goodsSize.equals(webSiteSize)) {
             //System.out.println("1-й");
             return goodsSize;
@@ -42,16 +37,16 @@ public class AnalyzeText {
 
         // здесь можно переделать: поднять/опустить регист во всех словах, вернуть оригинал.
         // если последний символ с сайта СП39 в нижнем регистре, то меняем его на верхний и проверяем с текстом с сайта.
-        String[] dividedStr = splitString.getSizes(webSiteSize);  // делим строку с сайта
-        partsGoods[fromSpSize - 1] = partsGoods[fromSpSize - 1].toUpperCase();  // меняем регистр последнего индекса
+        for (int i = 0; i < partsGoods.length; i++) {
+            partsGoods[i] = partsGoods[i].toUpperCase();
+        }
+        for (int i = 0; i < partsSite.length; i++) {
+            partsSite[i] = partsSite[i].toUpperCase();
+        }
         String str = String.join(" ", partsGoods); // собираем в строку
-        //int length = Math.min(fromSpSize, dividedStr.length);
-        for (int i = 0; i < dividedStr.length; i++) {
-            String res = dividedStr[i].trim();
-            if (str.equals(res)) {
-                //System.out.println("4-й");
-                return dividedStr[i];
-            }
+        String str2 = String.join(" ", partsSite); // собираем в строку
+        if (str.equals(str2)){
+           return webSiteSize.trim();
         }
 
         return goodsSize;
@@ -66,42 +61,22 @@ public class AnalyzeText {
          размер M
          размер L
 
-
 Горшок для рассады 7х7х7 см   ----10шт (ТФ3127)
 				10шт (ТФ3127)
 
-
-
-
 Лейкопластырь медицинский с акринолом
 (60штук)
-
 				 (60штук)
-
 
 Полиэтиленовый пакет с застёжкой ZIP-LOCK (100шт)
 (6х8 см)
-
 				 (4х6 см)
-
 				 (5х7 см)
-
 				 (6х8 см)
-
 
 
 Пряжа для вязания и рукоделия 50 гр
 бордовый
-
-
      */
 
-    public String splitNameArticuleSize(String goodsSize, String textFromProduct){
-        String result = "";
-        SplitString splitString = new SplitString();
-        String[] splitName = splitString.getSizes(textFromProduct);  // делим строку с сайта
-        result = splitName[0];
-
-        return result;
-    }
 }

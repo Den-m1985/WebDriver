@@ -2,25 +2,20 @@ package org.example.browser;
 
 import org.example.TextLinks;
 import org.example.authentication.LoginStorage;
-import org.openqa.selenium.By;
+import org.example.browser.chrome.XPathWait;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
-    private final WebDriverWait wait;
 
 
-    public LoginPage(WebDriverWait wait) throws Exception {
-        this.wait = wait;
-
+    public LoginPage() throws Exception {
         signAccount();
     }
 
 
     void signAccount() throws Exception {
+        XPathWait pathWait = new XPathWait();
 
-        XPathWait pathWait = new XPathWait(wait);
         LoginStorage loginStorage = new LoginStorage();
 
         // field Cabinet
@@ -44,10 +39,6 @@ public class LoginPage {
 
         passwordField.sendKeys(decryptedData[1]);  // enter password
         decryptedData[1] = "";
-        /*
-        Добавить замену пароля, чтоб не чисел в буфере.
-         */
-
 
         // field Enter
         TextLinks LinksEnter = TextLinks.ENTERACCOUNT;
@@ -55,6 +46,5 @@ public class LoginPage {
         enterField.click();
 
     }
-
 
 }

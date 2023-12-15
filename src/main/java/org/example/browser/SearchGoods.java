@@ -1,45 +1,36 @@
 package org.example.browser;
 
 import org.example.TextLinks;
-import org.openqa.selenium.WebDriver;
+import org.example.browser.chrome.XPathWait;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchGoods {
 
-    private final WebDriverWait wait;
 
-    public SearchGoods(WebDriverWait wait) {
-        this.wait = wait;
-    }
-
-
-    public void searchProduct(String article, WebDriver driver) throws InterruptedException {
-
-        XPathWait pathWait = new XPathWait(wait);
+    public SearchGoods(String article) throws InterruptedException {
+        XPathWait pathWait = new XPathWait();
 
         TextLinks LinksSearch = TextLinks.SEARCHFIELD;
         WebElement search = pathWait.xPath(LinksSearch.getString());
 
-        new ClowdWindow(driver);
+        new ClowdWindow();
 
         search.click();
 
-        new ClowdWindow(driver);
+        new ClowdWindow();
 
         search.sendKeys(article);
 
-        new ClowdWindow(driver);
+        new ClowdWindow();
 
         TextLinks linkButtonSearch = TextLinks.BUTTONSEARCH;
         WebElement buttonSearch = pathWait.xPath(linkButtonSearch.getString());
 
-        new ClowdWindow(driver);
+        new ClowdWindow();
 
         buttonSearch.click();
 
-        new ClowdWindow(driver);
-
+        new ClowdWindow();
     }
 
 }

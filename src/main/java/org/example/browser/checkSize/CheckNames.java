@@ -22,5 +22,4 @@ public class CheckNames {
         return false;
     }
 
-
 }

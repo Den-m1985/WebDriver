@@ -5,8 +5,7 @@ import java.util.Objects;
 
 public class ButtonStart {
 
-
-    public JButton buttonStart(){
+    public JButton buttonStart() {
         JButton startButton = new JButton("<html><h2><font color=\"blue\">START");
         startButton.setFocusPainted(false);  // бираем рамку вокруг кнопки
         //System.out.println(getClass().getResource("/play64.png"));
@@ -17,6 +16,5 @@ public class ButtonStart {
 
         return startButton;
     }
-
 
 }

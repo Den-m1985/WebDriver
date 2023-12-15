@@ -2,16 +2,14 @@ package org.example.searchAndAdd;
 
 import org.example.browser.checkSize.AnalyzeText;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 public class ManyGoods {
 
-    public ManyGoods(List<WebElement> products, WebDriver driver, WebDriverWait wait, String goodsName) {
+    public ManyGoods(List<WebElement> products, String goodsName) {
         /*
         Не удается скикнуть по товару если их более 1шт. Найти и сравнить название получается.
          */

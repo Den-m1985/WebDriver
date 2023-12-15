@@ -2,8 +2,6 @@ package org.example.window.helper_classes;
 
 import org.example.authentication.LoginStorage;
 
-import java.io.File;
-
 public class Authorization {
 
     public Authorization() throws Exception {
@@ -17,6 +15,5 @@ public class Authorization {
         LoginStorage loginStorage = new LoginStorage();
         loginStorage.saveToFile(login, password);
     }
-
 
 }

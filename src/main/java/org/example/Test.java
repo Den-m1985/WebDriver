@@ -1,12 +1,10 @@
 package org.example;
 
-import com.opencsv.exceptions.CsvException;
 import org.example.command.Command;
 import org.example.createPathFile.GetPathFile;
 
-import java.io.IOException;
-
 public class Test {
+
     public static void main(String[] args) {
 
         String pathCSV = null;
@@ -28,14 +26,13 @@ public class Test {
         System.out.println(pathCSV);
         System.out.println();
 
-        Command command = new Command();
-
         try {
-            command.startProgram(pathCSV);
+            new Command(pathCSV);
 
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
     }
+
 }

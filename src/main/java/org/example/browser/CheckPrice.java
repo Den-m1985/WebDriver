@@ -1,24 +1,23 @@
 package org.example.browser;
 
 import org.example.TextLinks;
+import org.example.browser.chrome.DriverChrome;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class CheckPrice {
-
-    private final WebDriver driver;
     private final int intGoodsPrice;
     int procent;
 
 
-    public CheckPrice(WebDriver driver, int intGoodsPrice) {
-        this.driver = driver;
+    public CheckPrice(int intGoodsPrice) {
         this.intGoodsPrice = intGoodsPrice;
 
     }
 
     public boolean checkPrice() {
+        WebDriver driver = DriverChrome.getChromeDriver();
 
         TextLinks priceField = TextLinks.PRICE;
         WebElement priceClass = driver.findElement(By.cssSelector(priceField.getString()));
